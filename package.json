@@ -1,0 +1,25 @@
+{
+  "name": "iupui-collaboration-visualization",
+  "version": "1.0.0",
+  "description": "",
+  "main": "visualization.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "open-cli index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrazyGriferman/IUPUI-collaboration-visualization.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/CrazyGriferman/IUPUI-collaboration-visualization/issues"
+  },
+  "homepage": "https://github.com/CrazyGriferman/IUPUI-collaboration-visualization#readme",
+  "dependencies": {
+    "echarts": "^5.4.3",
+    "open-cli": "^7.2.0"
+  }
+}

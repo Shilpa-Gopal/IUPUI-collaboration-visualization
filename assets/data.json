@@ -1,0 +1,344 @@
+{
+    "name": "test",
+    "children": [
+      {
+        "name": "Luddy School of Informatics, Computing and Engineering",
+        "children": [
+          {
+            "name": "Mohammad Al Hasan (alhasan@iupui.edu)",
+            "value": "Data mining, Machine Learning"
+          },
+          {
+            "name": "Fawzi BenMessaoud (fawzbenm@iupui.edu)",
+            "value": "AI in education"
+          },
+          {
+            "name": "Davide Bolchini (dbolchin@iupui.edu)",
+            "value": "HCI"
+          },
+          {
+            "name": "Sunandan Chakraborty (sunchak@iu.edu)",
+            "value": "Data Science, NLP"
+          },
+          {
+            "name": "Arjan Durresi (durresi@cs.iupui.edu)",
+            "value": "Trust in AI"
+          },
+          {
+            "name": "Shiaofen Fang (shfang@iu.edu)",
+            "value": "Interactive AI, Visualization, Medical image analysis"
+          },
+          {
+            "name": "James Hill (hilljh@iupui.edu)",
+            "value": "AI in software testing"
+          },
+          {
+            "name": "Qin Hu (qinhu@iu.edu)",
+            "value": "Data privacy and security"
+          },
+          {
+            "name": "Hyeju Jang (hyejuj@iupui.edu)",
+            "value": "NLP, AI in healthcare"
+          },
+          {
+            "name": "Sarath Janga (scjanga@iupui.edu)",
+            "value": "AI in bioinformatics"
+          },
+          {
+            "name": "Ming Jiang (mj200@iu.edu)",
+            "value": "NLP, Data science"
+          },
+          {
+            "name": "Kyle Jones (kmlj@iupui.edu)",
+            "value": "Information ethics and policies"
+          },
+          {
+            "name": "Bohdan Khomtchouk (bokhomt@iu.edu)",
+            "value": "AI in bioinformatics, cardioinformatics."
+          },
+          {
+            "name": "Yao Liang (yaoliang@iupui.edu)",
+            "value": "Cyberphysical systems, sensors"
+          },
+          {
+            "name": "Karl MacDorman (kmacdorm@iu.edu)",
+            "value": "HCI, human-robot interaction"
+          },
+          {
+            "name": "Aqueasha Martin-Hammond (aqumarti@iupui.edu)",
+            "value": "HCI, AI in health informatics"
+          },
+          {
+            "name": "Angela Murillo (apmurill@iu.edu)",
+            "value": "Data Science"
+          },
+          {
+            "name": "Saptarshi Purkayastha (saptpurk@iupui.edu)",
+            "value": "AI in health informatics"
+          },
+          {
+            "name": "Khairi Reda (redak@iupui.edu)",
+            "value": "HCI, Visualization"
+          },
+          {
+            "name": "Juexin Wang (wangjuex@iu.edu)",
+            "value": "AI in bioinformatics, Machine learning"
+          },
+          {
+            "name": "Yuni Xia (yuxia@iupui.edu)",
+            "value": "Data mining, Databases, AI in education"
+          },
+          {
+            "name": "Jingwen Yan (jingyan@iupui.edu)",
+            "value": "AI in bioinformatics, Machine learning"
+          },
+          {
+            "name": "Xukai Zou (xzou@iupui.edu)",
+            "value": "Cybersecurity, Data privacy"
+          }
+        ]
+      },
+      {
+        "name": "School of Medicine / Regenstrief",
+        "children": [
+          {
+            "name": "Spyridon Bakas (spbakas@iu.edu)",
+            "value": "Federated learning, Medical image analysis"
+          },
+          {
+            "name": "Sha Cao (shacao@iu.edu)",
+            "value": "Statistical machine learning, Data science"
+          },
+          {
+            "name": "Andrew Gonzalez (andrewg@iu.edu)",
+            "value": "AI in healthcare"
+          },
+          {
+            "name": "Shaun Grannis (sgrannis@regenstrief.org)",
+            "value": "AI in bioinformatics and healthcare"
+          },
+          {
+            "name": "Kun Huang (kunhuang@iu.edu)",
+            "value": "Data science, Computer vision, AI in bioinformatics"
+          },
+          {
+            "name": "Taeho Jo (tjo@iu.edu)",
+            "value": "AI in bioinformatics, Machine learning"
+          },
+          {
+            "name": "Christopher Lapish (clapish@iupui.edu)",
+            "value": "AI in neuroscience"
+          },
+          {
+            "name": "Yunlong Liu (yunliu@iupui.edu)",
+            "value": "AI in bioinformatics"
+          },
+          {
+            "name": "Kwangsik Nho (knho@iu.edu)",
+            "value": "AI in health informatics, Medical image analysis"
+          },
+          {
+            "name": "Yaoying Ma (ym9@iu.edu)",
+            "value": "AI in neuroscience, Medical image analysis"
+          },
+          {
+            "name": "Sarah Quinney (squinney@iupui.edu)",
+            "value": "AI in medicine"
+          },
+          {
+            "name": "Vijay Ramakrishnan (vrramakr@iu.edu)",
+            "value": "AI in medicine"
+          },
+          {
+            "name": "Andrew Saykin (asaykin@iupui.edu)",
+            "value": "AI in neuroscience"
+          },
+          {
+            "name": "Jing Su (su1@iu.edu)",
+            "value": "AI in bioinformatics, Machine learning"
+          },
+          {
+            "name": "Chi Zhang (czhang87@iu.edu)",
+            "value": "AI in bioinformatics"
+          },
+          {
+            "name": "Xuandong Zhao (zhaoxua@iu.edu)",
+            "value": "AI in neuroscience, Medical image analysis"
+          }
+        ]
+      },
+      {
+        "name": "School of Science",
+        "children": [
+          {
+            "name": "Adam Hirsh (athirsh@iupui.edu)",
+            "value": "Computational psychology"
+          },
+          {
+            "name": "Alexey Kuznetsov (askuznet@iupui.edu)",
+            "value": "Computational neuroscience"
+          },
+          {
+            "name": "Christine Picard (cpicard@iupui.edu)",
+            "value": "AI in bioinformatics, Forensics"
+          },
+          {
+            "name": "Jingzhi Pu (jpu@iupui.edu)",
+            "value": "Computational chemistry"
+          },
+          {
+            "name": "Pratibha Varma-Nelson (pvn@iupui.edu)",
+            "value": "AI in STEM education"
+          },
+          {
+            "name": "Leonid Rubchinsky (lrubchin@iu.edu)",
+            "value": "Computational neuroscience"
+          },
+          {
+            "name": "Jesse Stewart (jstew@iupui.edu)",
+            "value": "AI in Medicine, Cardiometabolic diseases"
+          },
+          {
+            "name": "Susan Walsh (walshsus@iupui.edu)",
+            "value": "AI in bioinformatics, Forensic imaging"
+          },
+          {
+            "name": "Lixin Wang (wang.iupui@gmail.com)",
+            "value": "AI in Environmental Science, Climate simulation"
+          },
+          {
+            "name": "Luoding Zhu (luozhu@iupui.edu)",
+            "value": "Computational mathematics, Fluid dynamics"
+          },
+          {
+            "name": "Wei Wu (wwu1@iu.edu)",
+            "value": "Data science, Computational psychology"
+          }
+        ]
+      },
+      {
+        "name": "School of Liberal Arts",
+        "children": [
+          {
+            "name": "Scott Deal (deal@iupui.edu)",
+            "value": "AI in music technology"
+          },
+          {
+            "name": "Timothy Hsu (hsut@iu.edu)",
+            "value": "AI in music technology"
+          },
+          {
+            "name": "Jordan Munson (jtmunson@iupui.edu)",
+            "value": "AI in music technology"
+          },
+          {
+            "name": "Jason Palamara (japalama@iu.edu)",
+            "value": "AI in music technology"
+          }
+        ]
+      },
+      {
+        "name": "Richard M. Fairbanks School of Public Health",
+        "children": [
+          {
+            "name": "Brian Dixon (bedixon@iu.edu)",
+            "value": "AI in healthcare, health informatics"
+          },
+          {
+            "name": "Chris Harle (charle@iu.edu)",
+            "value": "AI in healthcare, health informatics"
+          },
+          {
+            "name": "Gerardo Maupome (gmaupome@iu.edu)",
+            "value": "AI in healthcare"
+          },
+          {
+            "name": "Olena Mazurenko (omazuren@iu.edu)",
+            "value": "AI in healthcare, health policies"
+          },
+          {
+            "name": "Heather Taylor (hhavens@iu.edu)",
+            "value": "AI in healthcare, Health disparity"
+          },
+          {
+            "name": "Josh Vest (joshvest@iu.edu)",
+            "value": "AI in health informatics"
+          }
+        ]
+      },
+      {
+        "name": "School of Dentistry",
+        "children": [
+          {
+            "name": "Thankam Thyvalikakath (tpt@iu.edu)",
+            "value": "AI in health informatics"
+          },
+          {
+            "name": "Hakan Turkkahraman (haturk@iu.edu)",
+            "value": "AI in orthodontics, craniofacial imaging"
+          }
+        ]
+      },
+      {
+        "name": "School of Law",
+        "children": [
+          {
+            "name": "Cynthia Adams (cmadams@iu.edu)",
+            "value": "AI in legal analysis"
+          },
+          {
+            "name": "Jim Dimitri (jddimitr@iupui.edu)",
+            "value": "AI in teaching legal writing"
+          },
+          {
+            "name": "Frank Emmert (femmert@iupui.edu)",
+            "value": "AI and Blockchain technology"
+          },
+          {
+            "name": "Miriam Murphy (mimurphy@iupui.edu)",
+            "value": "AI in legal informatics"
+          }
+        ]
+      },
+      {
+        "name": "School of Health & Human Sciences",
+        "children": [
+          {
+            "name": "Navin Kaushal (nkaushal@iu.edu)",
+            "value": "AI in health and wellbeing"
+          },
+          {
+            "name": "Laila Alibiglou (lalibig@iu.edu)",
+            "value": "AI in neuroscience and health"
+          }
+        ]
+      },
+      {
+        "name": "School of Education",
+        "children": [
+          {
+            "name": "Jeremy Price (jfprice@iupui.edu)",
+            "value": "AI ethics, AI in education"
+          }
+        ]
+      },
+      {
+        "name": "Herron School of Art",
+        "children": [
+          {
+            "name": "Gürkan Maruf Mıhçı (gmihci@iu.edu)",
+            "value": "AI for Digital Arts"
+          }
+        ]
+      },
+      {
+        "name": "Lilly Family School of Philanthropy",
+        "children": [
+          {
+            "name": "Patricia Herzog (psherzog@iupui.edu)",
+            "value": "Social impact of AI"
+          }
+        ]
+      }
+    ]
+  }
