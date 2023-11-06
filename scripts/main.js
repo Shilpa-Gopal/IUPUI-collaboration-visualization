@@ -59,10 +59,35 @@ fetch("/assets/test.json")
               width: 10
             }
           }
+        },
+        {
+          name:'Access Sources',
+          type:'pie',
+          radius: ['60%', '80%'],
+          label: {
+            fontWeight: 'bold',
+            normal: {
+                position: 'inner'
+            }
+          },
+          data:[
+              {value:335, name:'Through'},
+              {value:310, name:'E-mail marketing'},
+              {value:234, name:'Advertising Alliance'},
+              {value:135, name:'Video ads'},
+              {value:1048, name:'Baidu'},
+              {value:251, name:'Google'},
+              {value:147, name:'Must'},
+              {value:102, name:'Other'}
+          ],
+          itemStyle: {
+            opacity: 0.4
+          }
         }
       ]
     };
-  option && myChart.setOption(option);
+  myChart.setOption(option);
+  myChart.mergeOption(option);
   myChart.on("click", (res) => {
     console.log(res);
   })
