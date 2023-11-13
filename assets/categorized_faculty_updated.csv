@@ -1,25 +1,25 @@
 id,name,email,researchArea,schoolName,categorizedResearchArea
 1,Mohammad Al Hasan,alhasan@iupui.edu,"Data mining, Machine Learning","Luddy School of Informatics, Computing and Engineering",Data Science
-2,Fawzi BenMessaoud,fawzbenm@iupui.edu,AI in education,"Luddy School of Informatics, Computing and Engineering",AI in Education and Career Devlopment
+2,Fawzi BenMessaoud,fawzbenm@iupui.edu,AI in education,"Luddy School of Informatics, Computing and Engineering",AI in Education and Career Development
 3,Davide Bolchini,dbolchin@iupui.edu,HCI,"Luddy School of Informatics, Computing and Engineering",HCI / Visualization
 4,Sunandan Chakraborty,sunchak@iu.edu,"Data Science, NLP","Luddy School of Informatics, Computing and Engineering",Data Science
 5,Arjan Durresi,durresi@cs.iupui.edu,Trust in AI,"Luddy School of Informatics, Computing and Engineering","Trust, Privacy and Security in AI"
 6,Shiaofen Fang,shfang@iu.edu,"Interactive AI, Visualization, Medical image analysis","Luddy School of Informatics, Computing and Engineering",Computer Vision and Imaging
-7,James Hill,hilljh@iupui.edu,AI in software testing,"Luddy School of Informatics, Computing and Engineering",
+7,James Hill,hilljh@iupui.edu,AI in software testing,"Luddy School of Informatics, Computing and Engineering",Machine Learning & Data Mining
 8,Qin Hu,qinhu@iu.edu,Data privacy and security,"Luddy School of Informatics, Computing and Engineering","Trust, Privacy and Security in AI"
-9,Hyeju Jang,hyejuj@iupui.edu,"NLP, AI in healthcare","Luddy School of Informatics, Computing and Engineering",Natural Language Processing and Linguistics
+9,Hyeju Jang,hyejuj@iupui.edu,"NLP, AI in healthcare","Luddy School of Informatics, Computing and Engineering",AI in Health Informatics
 10,Sarath Janga,scjanga@iupui.edu,AI in bioinformatics,"Luddy School of Informatics, Computing and Engineering",AI in Bioinformatics
 11,Ming Jiang,mj200@iu.edu,"NLP, Data science","Luddy School of Informatics, Computing and Engineering",Data Science
-12,Kyle Jones,kmlj@iupui.edu,Information ethics and policies,"Luddy School of Informatics, Computing and Engineering",Cyber-Physical Systems
+12,Kyle Jones,kmlj@iupui.edu,Information ethics and policies,"Luddy School of Informatics, Computing and Engineering","AI Policies, Philosophy, Ethics and Societal Impact"
 13,Bohdan Khomtchouk,bokhomt@iu.edu,"AI in bioinformatics, cardioinformatics.","Luddy School of Informatics, Computing and Engineering",AI in Bioinformatics
-14,Yao Liang,yaoliang@iupui.edu,"Cyberphysical systems, sensors","Luddy School of Informatics, Computing and Engineering",
+14,Yao Liang,yaoliang@iupui.edu,"Cyberphysical systems, sensors","Luddy School of Informatics, Computing and Engineering",Cyber-Physical Systems
 15,Karl MacDorman,kmacdorm@iu.edu,"HCI, human-robot interaction","Luddy School of Informatics, Computing and Engineering",HCI / Visualization
 16,Aqueasha Martin-Hammond,aqumarti@iupui.edu,"HCI, AI in health informatics, ","Luddy School of Informatics, Computing and Engineering",AI in Health Informatics
 17,Angela Murillo,apmurill@iu.edu,Data Science,"Luddy School of Informatics, Computing and Engineering",Data Science
 18,Saptarshi Purkayastha,saptpurk@iupui.edu,AI in health informatics,"Luddy School of Informatics, Computing and Engineering",AI in Health Informatics
 19,Khairi Reda,redak@iupui.edu,"HCI, Visualization","Luddy School of Informatics, Computing and Engineering",HCI / Visualization
 20,Juexin Wang,wangjuex@iu.edu,"AI in bioinformatics, Machine learning","Luddy School of Informatics, Computing and Engineering",AI in Bioinformatics
-21,Yuni Xia,yuxia@iupui.edu,"Data mining, Databases, AI in education","Luddy School of Informatics, Computing and Engineering",AI in Education and Career Devlopment
+21,Yuni Xia,yuxia@iupui.edu,"Data mining, Databases, AI in education","Luddy School of Informatics, Computing and Engineering",AI in Education and Career Development
 22,Jingwen Yan,jingyan@iupui.edu,"AI in bioinformatics, Machine learning","Luddy School of Informatics, Computing and Engineering",AI in Bioinformatics
 23,Xukai Zou,xzou@iupui.edu,"Cybersecurity, Data privacy","Luddy School of Informatics, Computing and Engineering","Trust, Privacy and Security in AI"
 24,Spyridon Bakas,spbakas@iu.edu,"Federated learning, Medical image analysis",School of Medicine / Regenstrief,Computer Vision and Imaging
@@ -27,74 +27,75 @@ id,name,email,researchArea,schoolName,categorizedResearchArea
 26,Andrew Gonzalez,andrewg@iu.edu,AI in healthcare,School of Medicine / Regenstrief,AI in Health Informatics
 27,Shaun Grannis,sgrannis@regenstrief.org,AI in bioinformatics and healthcare,School of Medicine / Regenstrief,AI in Health Informatics
 28,Kun Huang,kunhuang@iu.edu,"Data science, Computer vision, AI in bioinformatics",School of Medicine / Regenstrief,Computer Vision and Imaging
-29,Taeho Jo,tjo@iu.edu,"AI in bioinformatics, Machine learning",School of Medicine / Regenstrief,Machine Learning & Data Mining
+29,Taeho Jo,tjo@iu.edu,"AI in bioinformatics, Machine learning",School of Medicine / Regenstrief,AI in Bioinformatics
 30,Christopher Lapish,clapish@iupui.edu,AI in neuroscience,School of Medicine / Regenstrief,Computational Neuroscience and Simulations
 31,Yunlong Liu,yunliu@iupui.edu,AI in bioinformatics,School of Medicine / Regenstrief,AI in Bioinformatics
-32,Kwangsik Nho,knho@iu.edu,"AI in health informatics, Medical image analysis",School of Medicine / Regenstrief,AI in Education and Career Devlopment
-33,Yaoying Ma,ym9@iu.edu,"AI in neuroscience, Medical image analysis",School of Medicine / Regenstrief,
-34,Sarah Quinney,squinney@iupui.edu,AI in medicine,School of Medicine / Regenstrief,AI in Education and Career Devlopment
-35,Vijay Ramakrishnan,vrramakr@iu.edu,AI in medicine,School of Medicine / Regenstrief,AI in Education and Career Devlopment
-36,Andrew Saykin,asaykin@iupui.edu,AI in neuroscience,School of Medicine / Regenstrief,AI in Education and Career Devlopment
-37,Jing Su,su1@iu.edu,"AI in bioinformatics, Machine learning",School of Medicine / Regenstrief,Data Science
+32,Kwangsik Nho,knho@iu.edu,"AI in health informatics, Medical image analysis",School of Medicine / Regenstrief,AI in Medicine and Healthcare
+33,Yaoying Ma,ym9@iu.edu,"AI in neuroscience, Medical image analysis",School of Medicine / Regenstrief,Computational Neuroscience and Simulations
+34,Sarah Quinney,squinney@iupui.edu,AI in medicine,School of Medicine / Regenstrief,AI in Medicine and Healthcare
+35,Vijay Ramakrishnan,vrramakr@iu.edu,AI in medicine,School of Medicine / Regenstrief,AI in Medicine and Healthcare
+36,Andrew Saykin,asaykin@iupui.edu,AI in neuroscience,School of Medicine / Regenstrief,AI in Medicine and Healthcare
+37,Jing Su,su1@iu.edu,"AI in bioinformatics, Machine learning",School of Medicine / Regenstrief,AI in Bioinformatics
 38,Chi Zhang,czhang87@iu.edu,AI in bioinformatics,School of Medicine / Regenstrief,AI in Bioinformatics
 39,Xuandong Zhao,zhaoxua@iu.edu,"AI in neuroscience, Medical image analysis",School of Medicine / Regenstrief,Machine Learning & Data Mining
 40,Adam Hirsh,athirsh@iupui.edu,Computational psychology,School of Science,Computational Neuroscience and Simulations
 41,Alexey Kuznetsov,askuznet@iupui.edu,Computational neuroscience,School of Science,Computational Neuroscience and Simulations
-42,Christine Picard,cpicard@iupui.edu,"AI in bioinformatics, Forensics",School of Science,
-43,Jingzhi Pu,jpu@iupui.edu,Computational chemistry,School of Science,
-44,Pratibha Varma-Nelson,pvn@iupui.edu,AI in STEM education,School of Science,AI in Education and Career Devlopment
+42,Christine Picard,cpicard@iupui.edu,"AI in bioinformatics, Forensics",School of Science,AI in Bioinformatics
+43,Jingzhi Pu,jpu@iupui.edu,Computational chemistry,School of Science,Computational Neuroscience and Simulations
+44,Pratibha Varma-Nelson,pvn@iupui.edu,AI in STEM education,School of Science,AI in Education and Career Development
 45,Leonid Rubchinsky,lrubchin@iu.edu,Computational neuroscience,School of Science,Computational Neuroscience and Simulations
-46,Jesse Stewart,jstew@iupui.edu,"AI in Medicine, Cardiometabolic diseases",School of Science,
-47,Susan Walsh,walshsus@iupui.edu,"AI in bioinformatics, Forensic imaging",School of Science,Computer Vision and Imaging
-48,Lixin Wang,wang.iupui@gmail.com,"AI in Environmental Sciecne, Climate simulation",School of Science,
+46,Jesse Stewart,jstew@iupui.edu,"AI in Medicine, Cardiometabolic diseases",School of Science,AI in Medicine and Healthcare
+47,Susan Walsh,walshsus@iupui.edu,"AI in bioinformatics, Forensic imaging",School of Science,AI in Bioinformatics
+48,Lixin Wang,wang.iupui@gmail.com,"AI in Environmental Sciecne, Climate simulation",School of Science,Computational Neuroscience and Simulations
 49,Luoding Zhu,luozhu@iupui.edu,"Computational mathematics, Fluid dynamics",School of Science,Computational Neuroscience and Simulations
 50,Wei Wu,wwu1@iu.edu,"Data science, Computational psychology",School of Science,Computational Neuroscience and Simulations
-51,Rudy Banerjee,rbanerje@iupui.edu,"Spatial analysis, Causal modeling",School of Liberal Arts,AI in Education and Career Devlopment
-52,Chad Carmichael,crcarmic@iupui.edu,"AI Philosophy, Ethics",School of Liberal Arts,
-53,Estela Ene,eene@iupui.edu,"NLP, language and linguistics ",School of Liberal Arts,
-54,Samuel Kahn,kahnsa@iupui.edu,"AI Philosophy, Ethics",School of Liberal Arts,
-55,Timothy Lyons,tdlyons@iu.edu,"AI Philosophy, Ethics",School of Liberal Arts,
-56,Rachel Wheeler,wheelerr@iupui.edu,"RealCV, Education",School of Liberal Arts,
-57,Jeffrey Wilson,jeswilso@iupui.edu,"Spatial analysis, GIS, data integration",School of Liberal Arts,AI in Education and Career Devlopment
-58,Jeremy Wilson,wilsojer@iupui.edu,Spatial and morphological analysis,School of Liberal Arts,AI in Education and Career Devlopment
-59,Brian Dixon,bedixon@iu.edu,"AI in healthcare, health informatics",Richard M. Fairbanks School of Public Health,AI in Health Informatics
-60,Chris Harle,charle@iu.edu,"AI in healthcare, health informatics",Richard M. Fairbanks School of Public Health,AI in Health Informatics
-61,Gerardo Maupome,gmaupome@iu.edu,AI in healthcare,Richard M. Fairbanks School of Public Health,AI in Education and Career Devlopment
-62,Olena Mazurenko,omazuren@iu.edu,"AI in healthcare, health policies",Richard M. Fairbanks School of Public Health,AI in Education and Career Devlopment
-63,Heather Taylor,hhavens@iu.edu,"AI in healthcare, Health disparity",Richard M. Fairbanks School of Public Health,AI in Education and Career Devlopment
-64,Josh Vest,joshvest@iu.edu,AI in health informatics,Richard M. Fairbanks School of Public Health,AI in Health Informatics
-65,Amrita Datta,amdatta@iu.edu,AI for digital art and communication,Herron School of Art,
-66,Scott Deal,deal@iupui.edu,AI in music technology,Herron School of Art,AI in Education and Career Devlopment
-67,Aarron Ganci,aganci@iu.edu,AI in digital design and communication,Herron School of Art,AI in Education and Career Devlopment
-68,Garrick Hargrove,gaharg@iu.edu,AI in digital design,Herron School of Art,
-69,Timothy Hsu,hsut@iu.edu,AI in music technology,Herron School of Art,AI in Education and Career Devlopment
-70,Alexa Kulinski,akulinsk@iu.edu,AI in art education,Herron School of Art,AI in Education and Career Devlopment
-71,Gürkan Maruf Mıhçı,gmihci@iu.edu,AI for digital design and communication,Herron School of Art,AI in Education and Career Devlopment
-72,Jordan Munson,jtmunson@iupui.edu,AI in music technology,Herron School of Art,AI in Education and Career Devlopment
-73,Jason Palamara,japalama@iu.edu,AI in music technology,Herron School of Art,
-74,Libba Wilcox,swillcox@indiana.edu,AI in art education,Herron School of Art,AI in Education and Career Devlopment
-75,Wendy Trueblood Miller,wrtruebl@indiana.edu,AI in Healthcare,School of Nursing,AI in Education and Career Devlopment
-76,Miyeon Jung,miyjung@iu.edu,AI in Healthcare,School of Nursing,AI in Education and Career Devlopment
-77,Yvonne Lu,yuelu@iu.edu,AI in Healthcare,School of Nursing,AI in Education and Career Devlopment
-78,Kelly Wierenga,kwiereng@iu.edu,AI in Healthcare,School of Nursing,AI in Education and Career Devlopment
-79,Susan Storey,sustorey@iu.edu,AI in health informatics,School of Nursing,AI in Education and Career Devlopment
-80,Rebecca Ellis,rjbartle@iu.edu,"AI in education, AI in medicine",School of Nursing,AI in Education and Career Devlopment
-81,Amrou Awaysheh,awaysheh@iu.edu,AI in business operations and sustainability,Kelly School of Business,AI in Education and Career Devlopment
-82,Vicki Daniels,vsmithda@iupui.edu,AI in healthcare management,Kelly School of Business,
-83,Sarah Noor,snoor@iu.edu,Business automation and information systems,Kelly School of Business,AI in Education and Career Devlopment
-84,Beverly Osborn,osbornbe@iu.edu,Business data analytics,Kelly School of Business,AI in Education and Career Devlopment
-85,Haewon Yoon,haeyoon@iu.edu,AI in business decision-making,Kelly School of Business,AI in Education and Career Devlopment
-86,Lin Zheng,lz36@iupui.edu,AI in accounting and business education,Kelly School of Business,
-87,Michin Hong,hongmi@iupui.edu,AI in Healthcare; Health disparity,School of Social Work,AI in Education and Career Devlopment
-88,David Wilkerson,dawilker@iu.edu,AI in healthcare; AI in education,School of Social Work,AI in Education and Career Devlopment
-89,Sadaaki Fukui,sadafuku@iu.edu,AI in Social Science ,School of Social Work,
-90,Thankam Thyvalikakath,tpt@iu.edu,AI in health informatics,School of Dentistry,AI in Health Informatics
-91,Hakan Turkkahraman,haturk@iu.edu,"AI in orthodontics, craniofacial imaging",School of Dentistry,AI in Education and Career Devlopment
-92,Cynthia Adams,cmadams@iu.edu,AI in legal analysis,School of Law,Cyber-Physical Systems
-93,Jim Dimitri,jddimitr@iupui.edu,AI in teaching legal writing,School of Law,Cyber-Physical Systems
-94,Frank Emmert,femmert@iupui.edu,AI and Blockchain technology,School of Law,
-95,Miriam Murphy,mimurphy@iupui.edu,AI in legal informatics,School of Law,Cyber-Physical Systems
-96,Navin Kaushal,nkaushal@iu.edu,AI in health and wellbeing ,School of Health & Human Sciences,
-97,Laila Alibiglou,lalibig@iu.edu,AI in neuroscience and health  ,School of Health & Human Sciences,
-98,Jeremy Price,jfprice@iupui.edu,"AI ethics, AI in education",School of Education,
-99,Patricia Herzog,psherzog@iupui.edu,Social impact of AI,Lilly Family School of Philanthropy,Cyber-Physical Systems
+51,Rudy Banerjee,rbanerje@iupui.edu,"Spatial analysis, Causal modeling",School of Liberal Arts,AI in Spatial Analysis and GIS
+52,Chad Carmichael,crcarmic@iupui.edu,"AI Philosophy, Ethics",School of Liberal Arts,"AI Policies, Philosophy, Ethics and Societal Impact"
+53,Estela Ene,eene@iupui.edu,"NLP, language and linguistics ",School of Liberal Arts,Natural Language Processing and Linguistics
+54,Samuel Kahn,kahnsa@iupui.edu,"AI Philosophy, Ethics",School of Liberal Arts,"AI Policies, Philosophy, Ethics and Societal Impact"
+55,Timothy Lyons,tdlyons@iu.edu,"AI Philosophy, Ethics",School of Liberal Arts,"AI Policies, Philosophy, Ethics and Societal Impact"
+56,Andre De Tienne,adetienn@iupui.edu,AI Philosophy,School of Liberal Arts,"AI Policies, Philosophy, Ethics and Societal Impact"
+57,Rachel Wheeler,wheelerr@iupui.edu,"RealCV, Education",School of Liberal Arts,AI in Education and Career Development
+58,Jeffrey Wilson,jeswilso@iupui.edu,"Spatial analysis, GIS, data integration",School of Liberal Arts,AI in Spatial Analysis and GIS
+59,Jeremy Wilson,wilsojer@iupui.edu,Spatial and morphological analysis,School of Liberal Arts,AI in Spatial Analysis and GIS
+60,Brian Dixon,bedixon@iu.edu,"AI in healthcare, health informatics",Richard M. Fairbanks School of Public Health,AI in Health Informatics
+61,Chris Harle,charle@iu.edu,"AI in healthcare, health informatics",Richard M. Fairbanks School of Public Health,AI in Health Informatics
+62,Gerardo Maupome,gmaupome@iu.edu,AI in healthcare,Richard M. Fairbanks School of Public Health,AI in Medicine and Healthcare
+63,Olena Mazurenko,omazuren@iu.edu,"AI in healthcare, health policies",Richard M. Fairbanks School of Public Health,AI in Medicine and Healthcare
+64,Heather Taylor,hhavens@iu.edu,"AI in healthcare, Health disparity",Richard M. Fairbanks School of Public Health,AI in Medicine and Healthcare
+65,Josh Vest,joshvest@iu.edu,AI in health informatics,Richard M. Fairbanks School of Public Health,AI in Health Informatics
+66,Amrita Datta,amdatta@iu.edu,AI for digital art and communication,Herron School of Art,AI in Music and Art
+67,Scott Deal,deal@iupui.edu,AI in music technology,Herron School of Art,AI in Music and Art
+68,Aarron Ganci,aganci@iu.edu,AI in digital design and communication,Herron School of Art,AI in Music and Art
+69,Garrick Hargrove,gaharg@iu.edu,AI in digital design,Herron School of Art,AI in Music and Art
+70,Timothy Hsu,hsut@iu.edu,AI in music technology,Herron School of Art,AI in Music and Art
+71,Alexa Kulinski,akulinsk@iu.edu,AI in art education,Herron School of Art,AI in Music and Art
+72,Gürkan Maruf Mıhçı,gmihci@iu.edu,AI for digital design and communication,Herron School of Art,AI in Music and Art
+73,Jordan Munson,jtmunson@iupui.edu,AI in music technology,Herron School of Art,AI in Music and Art
+74,Jason Palamara,japalama@iu.edu,AI in music technology,Herron School of Art,AI in Music and Art
+75,Libba Wilcox,swillcox@indiana.edu,AI in art education,Herron School of Art,AI in Music and Art
+76,Wendy Trueblood Miller,wrtruebl@indiana.edu,AI in Healthcare,School of Nursing,AI in Medicine and Healthcare
+77,Miyeon Jung,miyjung@iu.edu,AI in Healthcare,School of Nursing,AI in Medicine and Healthcare
+78,Yvonne Lu,yuelu@iu.edu,AI in Healthcare,School of Nursing,AI in Medicine and Healthcare
+79,Kelly Wierenga,kwiereng@iu.edu,AI in Healthcare,School of Nursing,AI in Medicine and Healthcare
+80,Susan Storey,sustorey@iu.edu,AI in health informatics,School of Nursing,AI in Medicine and Healthcare
+81,Rebecca Ellis,rjbartle@iu.edu,"AI in education, AI in medicine",School of Nursing,AI in Medicine and Healthcare
+82,Amrou Awaysheh,awaysheh@iu.edu,AI in business operations and sustainability,Kelly School of Business,AI in Business and Management
+83,Vicki Daniels,vsmithda@iupui.edu,AI in healthcare management,Kelly School of Business,AI in Business and Management
+84,Sarah Noor,snoor@iu.edu,Business automation and information systems,Kelly School of Business,AI in Business and Management
+85,Beverly Osborn,osbornbe@iu.edu,Business data analytics,Kelly School of Business,AI in Business and Management
+86,Haewon Yoon,haeyoon@iu.edu,AI in business decision-making,Kelly School of Business,AI in Business and Management
+87,Lin Zheng,lz36@iupui.edu,AI in accounting and business education,Kelly School of Business,AI in Business and Management
+88,Michin Hong,hongmi@iupui.edu,AI in Healthcare; Health disparity,School of Social Work,AI in Medicine and Healthcare
+89,David Wilkerson,dawilker@iu.edu,AI in healthcare; AI in education,School of Social Work,AI in Education and Career Development
+90,Sadaaki Fukui,sadafuku@iu.edu,AI in Social Science ,School of Social Work,"AI Policies, Philosophy, Ethics and Societal Impact"
+91,Thankam Thyvalikakath,tpt@iu.edu,AI in health informatics,School of Dentistry,AI in Health Informatics
+92,Hakan Turkkahraman,haturk@iu.edu,"AI in orthodontics, craniofacial imaging",School of Dentistry,AI in Medicine and Healthcare
+93,Cynthia Adams,cmadams@iu.edu,AI in legal analysis,School of Law,"AI Policies, Philosophy, Ethics and Societal Impact"
+94,Jim Dimitri,jddimitr@iupui.edu,AI in teaching legal writing,School of Law,"AI Policies, Philosophy, Ethics and Societal Impact"
+95,Frank Emmert,femmert@iupui.edu,AI and Blockchain technology,School of Law,"Trust, Privacy and Security in AI"
+96,Miriam Murphy,mimurphy@iupui.edu,AI in legal informatics,School of Law,"AI Policies, Philosophy, Ethics and Societal Impact"
+97,Navin Kaushal,nkaushal@iu.edu,AI in health and wellbeing ,School of Health & Human Sciences,AI in Medicine and Healthcare
+98,Laila Alibiglou,lalibig@iu.edu,AI in neuroscience and health  ,School of Health & Human Sciences,AI in Medicine and Healthcare
+99,Jeremy Price,jfprice@iupui.edu,"AI ethics, AI in education",School of Education,AI in Education and Career Development
+100,Patricia Herzog,psherzog@iupui.edu,Social impact of AI,Lilly Family School of Philanthropy,"AI Policies, Philosophy, Ethics and Societal Impact"

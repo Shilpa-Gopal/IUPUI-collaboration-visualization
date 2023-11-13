@@ -1,80 +1,269 @@
-<!-- <!DOCTYPE html>
-<html style="width: 100%;height: 100%;margin: 0px;padding: 0px;">
-	<head>
-		<meta charset="utf-8">
-		<title>数据可视化</title>
-	</head>
-	<body style="width: 100%;height: 100%;margin: 0px;padding: 0px;">
-		<main id="main" style="width: 100%;height: 100%;"></main>
-
-		<script src="scripts/echarts.min.js"></script>
-		<script src="scripts/main.js"></script>
-	</body>
-</html> -->
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pie Chart</title>
-    <!-- Include D3.js via CDN -->
+    <meta charset="utf-8">
     <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 <body>
-    <div id="chart"></div>
-
     <script>
-        // Sample data for the pie chart
-const data = [10, 20, 30, 40, 50];
+      d3.csv('categorized_faculty_updated.csv').then(function(d) {
+        // Process data here
+        // Create a mapping of school names to their professors' research areas
+        const categorizedResearchData = d3.groups(d, d => d.schoolName, d => d.categorizedResearchArea);
 
-// Dimensions and margins
-const width = 450;
-const height = 450;
-const margin = 40;
+        // const categorizedSchoolData = d3.groups(d, d => d.schoolName);
 
-// Radius of the pie chart
-const radius = Math.min(width, height) / 2 - margin;
 
-// Create SVG element
-const svg = d3.select("#chart")
-  .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", `translate(${width / 2}, ${height / 2})`);
+        // const hierarchyProfessors = categorizedResearchData.map(([school, areas]) => {
+        //   return areas.map(([area, professors]) => {
+        //         return {
+        //             researchArea: area,
+        //             totalNumberOfProfessors: professors.length,
+        //             detailedInformation: professors.map(professor => {
+        //                 return {
+        //                     name: professor.name,
+        //                     email: professor.email,
+        //                     researchArea: professor.researchArea,
+        //                     categorizedResearchData: professor.categorizedResearchData 
+        //                 };
+        //             })
+        //         };
+        //     })
+        // });
+        
+        // Convert the categorized data into a structure suitable for a hierarchical pie chart
+        const hierarchy = categorizedResearchData.map(([school, areas]) => {
+          return {
+            schoolName: school,
+            totalNumberOfProfessors: d3.sum(areas, ([, professors]) => professors.length),
+            professors: areas.map(([area, professors]) => {
+                return {
+                    researchArea: area,
+                    totalNumberOfProfessors: professors.length,
+                    detailedInformation: professors.map(professor => {
+                        return {
+                            name: professor.name,
+                            schoolName: school,
+                            email: professor.email,
+                            researchArea: professor.researchArea,
+                            categorizedResearchArea: area
+                        };
+                    })
+                };
+            })
+          };
+        });
+        // Now you have a hierarchy array ready for visualization
+               // Set dimensions and margins for the SVG container
+        const width = 1920,
+            height = 1080,
+            radius = Math.min(width, height) / 2;
 
-// Create a zoom behavior
-const zoom = d3.zoom()
-    .on("zoom", (event) => {
-        svg.attr("transform", event.transform);
-    });
+        // Create an SVG container
+        const svg = d3.select('body')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-// Apply the zoom behavior to the SVG
-d3.select("svg").call(zoom);
+        const zoomBehavior = d3.zoom()
+            .scaleExtent([0.1, 5]) // Allow up to 5x zoom in
+            .on('zoom', (event) => {
+                // Apply the zoom transformation to the whole pie chart group
+                svg.attr('transform', event.transform);
+            });
 
-// Set the color scale
-const color = d3.scaleOrdinal()
-  .domain(data)
-  .range(d3.schemeCategory10);
+        // Define the drag behavior
+        const dragBehavior = d3.drag()
+            .on('start', (event, d) => {
+                // Perform actions when dragging starts (optional)
+            })
+            .on('drag', (event, d) => {
+                // Reposition the element being dragged
+                d3.select(this)
+                    .attr('transform', `translate(${event.x}, ${event.y})`);
+            })
+            .on('end', (event, d) => {
+                // Perform actions when dragging ends (optional)
+            });
 
-// Compute the position of each group on the pie
-const pie = d3.pie();
-const data_ready = pie(data);
+        // Apply the zoom behavior to the SVG
+        d3.select('svg')
+            .call(zoomBehavior);
 
-// Shape helper to build arcs
-const arcGenerator = d3.arc()
-  .innerRadius(0)
-  .outerRadius(radius);
+        // Apply the drag behavior to each slice of the pie chart
+        svg.selectAll('.professor-arc, .school-arc')
+            .call(dragBehavior);
 
-// Build the pie chart
-svg
-  .selectAll('slices')
-  .data(data_ready)
-  .join('path')
-    .attr('d', arcGenerator)
-    .attr('fill', (d, i) => color(i))
-    .attr("stroke", "white")
-    .style("stroke-width", "2px")
-    .style("opacity", 0.7);
+
+
+        // Assuming 'hierarchy' is your processed data
+        const pie = d3.pie()
+            .value(d => d.totalNumberOfProfessors) // Assuming this is the property for professor count
+            .sort(null);
+
+        const arcOuter = d3.arc()
+        .outerRadius(radius + 100)
+        .innerRadius(radius - 70);
+
+        // Define the inner arc for schools
+        const arcInner = d3.arc()
+            .outerRadius(radius - 100)
+            .innerRadius(radius - 385); // If you want a pie chart, the inner radius should be 0
+
+
+        // Select and append path elements for schools
+        const schools = svg.selectAll('g.school-arc')
+            .data(pie(hierarchy))
+            .enter()
+            .append("svg:g")
+            .attr("class", "school-arc")
+
+        function angle(d) {
+            let a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+            return a > 90 ? a - 180 : a;
+        }
+
+        // add round pie 
+        schools.append("svg:path")
+            .attr('class', 'school-arc')
+            .attr('d', arcInner)
+            .attr('fill', (d, i) => d3.schemeCategory10[i % 10]) // Color scale for schools
+            .style("opacity", 0.2)
+
+        // add text to the inner pie chart
+        // calculate the angle that the text needs to rotate
+        schools
+            .append('text')
+            .text(d => d.data.schoolName)
+            .style('text-anchor', 'middle') // Center the text
+            .attr("dy", ".35em")
+            .style('font-size', 12)
+            .attr("transform", d => {
+                d.innerRadius = 0;
+                d.outerRadius = height / 2;
+                return "translate(" + arcInner.centroid(d) + ")rotate(" + angle(d) + ")";
+            })
+            .style("opacity", 0.7)
+
+
+        // For professors, we need to flatten the hierarchy to get all professors
+        const professors = hierarchy.flatMap(school => school.professors.flatMap(prof => prof.detailedInformation));
+        // Select and append path elements for professors
+
+        const outerPie = d3.pie()
+            .value(professors => 1) // Assuming this is the property for professor count
+            .sort(null);
+
+        const researchAreas = Array.from(new Set(hierarchy.flatMap(d => d.professors.flatMap(p => p.researchArea))));
+        
+        // Create an ordinal scale for research areas
+        const colorScale = d3.scaleOrdinal()
+            .domain(researchAreas)
+            .range([
+                "#383867", "#584c77", "#33431e", "#a36629",
+                "#92462f", "#b63e36", "#b74a70", "#946943",
+                "#383867", "#584c77", "#33431e", "#a36629",
+                "#92462f", "#b63e36", "#b74a70", "#946943"
+            ]); // or any other preferred color scheme
+
+
+        let profArcs = svg.selectAll('g.professor-arc')
+            .data(outerPie(professors))
+            .enter()
+            .append('svg:g')
+            .attr('class', 'professor-arc')
+
+        profArcs.append("svg:path")
+            .attr('class', 'professor-arc')
+            .attr('d', arcOuter)
+            .attr("data-name", d=> d.data.name)
+            .attr('fill', professors => colorScale(professors.data.categorizedResearchArea))
+            .style("stroke", "black")
+            .style("stroke-width", 1)
+
+        profArcs.append('text')
+            .text(d => d.data.name)
+            .style('text-anchor', 'middle') // Center the text
+            .attr("dy", ".35em")
+            .style('font-size', 12)
+            .attr("transform", d => {
+                d.innerRadius = 0;
+                d.outerRadius = height / 2;
+                return "translate(" + arcOuter.centroid(d) + ")rotate(" + angle(d) + ")";
+            })
+
+        //create legend for outer pie chart
+
+        const legend = svg.selectAll(".legend")
+            .data(colorScale.domain()) // Assuming this returns the unique categorized research areas
+            .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", (d, i) => "translate(-2700," + i * 20 + ")"); // Adjust spacing to fit your layout
+
+        // Draw legend colored rectangles
+        legend.append("rect")
+            .attr("x", width - 18) // Position to fit your layout
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", colorScale);
+
+        // Draw legend text
+        legend.append("text")
+            .attr("x", width - 24) // Position to fit your layout
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(d => d); // Assuming the domain is the actual 'categorizedResearchArea' text
+        
+        // Find the centroid for each node (Libba Wilcox and Chi Zhang)
+const libbaWilcoxNode = svg.select('.professor-arc[data-name="Libba Wilcox"]'); // Assuming you have data attributes set
+const chiZhangNode = svg.select('.professor-arc[data-name="Chi Zhang"]');
+
+
+function calculateInnerArcMidpoint(d, arcGenerator) {
+  // Calculate the mid-angle of the arc slice
+  const midAngle = (d._groups[0][0].__data__.startAngle + d._groups[0][0].__data__.endAngle) / 2;
+
+  // Calculate the outer radius of the arcGenerator
+  const innerRadius = arcGenerator.innerRadius()();
+
+  // Calculate the x and y coordinates on the circumference of the pie at the midAngle
+  const x = innerRadius * Math.cos(midAngle - Math.PI / 2);
+  const y = innerRadius * Math.sin(midAngle - Math.PI / 2);
+
+  return [x, y];
+}
+
+// Example use for "Libba Wilcox" and "Chi Zhang"
+const libbaWilcoxCenterPointOfInnerEdge = calculateInnerArcMidpoint(libbaWilcoxNode, arcOuter);
+const chiZhangCenterPointOfInnerEdge = calculateInnerArcMidpoint(chiZhangNode, arcOuter);
+
+
+// Create a Bezier curve path between the two centroids
+const linkPath = svg.append('path')
+    .attr('d', `M${libbaWilcoxCenterPointOfInnerEdge[0]},${libbaWilcoxCenterPointOfInnerEdge[1]} 
+                 C${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${libbaWilcoxCenterPointOfInnerEdge[1]} 
+                 ${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${chiZhangCenterPointOfInnerEdge[1]} 
+                 ${chiZhangCenterPointOfInnerEdge[0]},${chiZhangCenterPointOfInnerEdge[1]}`)
+    .attr('fill', 'none')
+    .attr('stroke', 'black')
+    .attr('stroke-width', '1px')
+    .attr('class', 'link-path'); // Class for styling and interaction
+
+// Add hover interactivity
+linkPath.on('mouseover', function() {
+    d3.select(this).attr('stroke-width', '3px'); // Highlight the link
+}).on('mouseout', function() {
+    d3.select(this).attr('stroke-width', '1px'); // Revert to normal
+});
+
+
+
+      })
+        
+      
     </script>
 </body>
 </html>
