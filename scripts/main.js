@@ -35,6 +35,8 @@ fetch("/assets/test.json")
         {
           name: 'Les Miserables',
           type: 'graph',
+          // zoom or move
+          roam: false,
           layout: 'circular',
           circular: {
             rotateLabel: true
@@ -44,7 +46,6 @@ fetch("/assets/test.json")
           data: json.nodes,
           links: json.links,
           categories: json.categories,
-          roam: true,
           label: {
             position: 'right',
             formatter: '{b}'

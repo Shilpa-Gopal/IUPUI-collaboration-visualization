@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+    <script>
+      d3.csv('categorized_faculty_updated.csv').then(function(d) {
+        // Process data here
+        // Create a mapping of school names to their professors' research areas
+        const categorizedResearchData = d3.groups(d, d => d.schoolName, d => d.categorizedResearchArea);
+
+        // const categorizedSchoolData = d3.groups(d, d => d.schoolName);
+
+
+        // const hierarchyProfessors = categorizedResearchData.map(([school, areas]) => {
+        //   return areas.map(([area, professors]) => {
+        //         return {
+        //             researchArea: area,
+        //             totalNumberOfProfessors: professors.length,
+        //             detailedInformation: professors.map(professor => {
+        //                 return {
+        //                     name: professor.name,
+        //                     email: professor.email,
+        //                     researchArea: professor.researchArea,
+        //                     categorizedResearchData: professor.categorizedResearchData 
+        //                 };
+        //             })
+        //         };
+        //     })
+        // });
+        
+        // Convert the categorized data into a structure suitable for a hierarchical pie chart
+        const hierarchy = categorizedResearchData.map(([school, areas]) => {
+          return {
+            schoolName: school,
+            totalNumberOfProfessors: d3.sum(areas, ([, professors]) => professors.length),
+            professors: areas.map(([area, professors]) => {
+                return {
+                    researchArea: area,
+                    totalNumberOfProfessors: professors.length,
+                    detailedInformation: professors.map(professor => {
+                        return {
+                            name: professor.name,
+                            schoolName: school,
+                            email: professor.email,
+                            researchArea: professor.researchArea,
+                        };
+                    })
+                };
+            })
+          };
+        });
+        // Now you have a hierarchy array ready for visualization
+        console.log(hierarchy);
+               // Set dimensions and margins for the SVG container
+        const width = 1024,
+            height = 768,
+            radius = Math.min(width, height) / 2;
+
+        // Create an SVG container
+        const svg = d3.select('body').append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${width / 2}, ${height / 2})`);
+        // Assuming 'hierarchy' is your processed data
+        const pie = d3.pie()
+            .value(d => d.totalNumberOfProfessors) // Assuming this is the property for professor count
+            .sort(null);
+    
+        const arcOuter = d3.arc()
+        .outerRadius(radius - 10)
+        .innerRadius(radius - 70);
+
+        // Define the inner arc for schools
+        const arcInner = d3.arc()
+            .outerRadius(radius - 100)
+            .innerRadius(radius - 180); // If you want a pie chart, the inner radius should be 0
+
+        // Select and append path elements for schools
+        const schools = svg.selectAll('.school-arc')
+            .data(pie(hierarchy))
+            .enter().append('path')
+            .attr('class', 'school-arc')
+            .attr('d', arcInner)
+            .attr('fill', (d, i) => d3.schemeCategory10[i % 10]); // Color scale for schools
+        console.log(hierarchy);
+
+
+        // For professors, we need to flatten the hierarchy to get all professors
+        const professors = hierarchy.flatMap(school => school.professors.flatMap(prof => prof.detailedInformation));
+        // Select and append path elements for professors
+
+        const outerPie = d3.pie()
+            .value(professors => 1) // Assuming this is the property for professor count
+            .sort(null);
+
+        const colorScale = d3.scaleOrdinal()
+            .domain('researchArea') // Set the domain to the unique research areas
+            .range(d3.schemeCategory10); // Use a predefined color scheme or define your own range of colors
+
+
+        console.log(professors);
+        const profArcs = svg.selectAll('.professor-arc')
+            .data(outerPie(professors))
+            .enter().append('path')
+            .attr('class', 'professor-arc')
+            .attr('d', arcOuter)
+            .attr('fill', professors => colorScale(professors.researchArea));
+            })
+            
+    </script>
+</body>
+</html>
