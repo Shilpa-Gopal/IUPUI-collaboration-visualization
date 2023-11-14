@@ -6,7 +6,7 @@
 </head>
 <body>
     <script>
-      d3.csv('./assets/categorized_faculty_updated.csv').then(function(d) {
+      d3.csv('categorized_faculty_updated.csv').then(function(d) {
         // Process data here
         // Create a mapping of school names to their professors' research areas
         const categorizedResearchData = d3.groups(d, d => d.schoolName, d => d.categorizedResearchArea);
@@ -218,47 +218,129 @@
             .text(d => d); // Assuming the domain is the actual 'categorizedResearchArea' text
         
         // Find the centroid for each node (Libba Wilcox and Chi Zhang)
-const libbaWilcoxNode = svg.select('.professor-arc[data-name="Libba Wilcox"]'); // Assuming you have data attributes set
-const chiZhangNode = svg.select('.professor-arc[data-name="Chi Zhang"]');
+        const libbaWilcoxNode = svg.select('.professor-arc[data-name="Libba Wilcox"]'); // Assuming you have data attributes set
+        const chiZhangNode = svg.select('.professor-arc[data-name="Chi Zhang"]');
 
 
-function calculateInnerArcMidpoint(d, arcGenerator) {
-  // Calculate the mid-angle of the arc slice
-  const midAngle = (d._groups[0][0].__data__.startAngle + d._groups[0][0].__data__.endAngle) / 2;
+        function calculateInnerArcMidpoint(d, arcGenerator) {
+        // Calculate the mid-angle of the arc slice
+        const midAngle = (d._groups[0][0].__data__.startAngle + d._groups[0][0].__data__.endAngle) / 2;
 
-  // Calculate the outer radius of the arcGenerator
-  const innerRadius = arcGenerator.innerRadius()();
+        // Calculate the outer radius of the arcGenerator
+        const innerRadius = arcGenerator.innerRadius()();
 
-  // Calculate the x and y coordinates on the circumference of the pie at the midAngle
-  const x = innerRadius * Math.cos(midAngle - Math.PI / 2);
-  const y = innerRadius * Math.sin(midAngle - Math.PI / 2);
+        // Calculate the x and y coordinates on the circumference of the pie at the midAngle
+        const x = innerRadius * Math.cos(midAngle - Math.PI / 2);
+        const y = innerRadius * Math.sin(midAngle - Math.PI / 2);
 
-  return [x, y];
-}
+        return [x, y];
+        }
 
-// Example use for "Libba Wilcox" and "Chi Zhang"
-const libbaWilcoxCenterPointOfInnerEdge = calculateInnerArcMidpoint(libbaWilcoxNode, arcOuter);
-const chiZhangCenterPointOfInnerEdge = calculateInnerArcMidpoint(chiZhangNode, arcOuter);
+        // Example use for "Libba Wilcox" and "Chi Zhang"
+        const libbaWilcoxCenterPointOfInnerEdge = calculateInnerArcMidpoint(libbaWilcoxNode, arcOuter);
+        const chiZhangCenterPointOfInnerEdge = calculateInnerArcMidpoint(chiZhangNode, arcOuter);
 
 
-// Create a Bezier curve path between the two centroids
-const linkPath = svg.append('path')
-    .attr('d', `M${libbaWilcoxCenterPointOfInnerEdge[0]},${libbaWilcoxCenterPointOfInnerEdge[1]} 
-                 C${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${libbaWilcoxCenterPointOfInnerEdge[1]} 
-                 ${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${chiZhangCenterPointOfInnerEdge[1]} 
-                 ${chiZhangCenterPointOfInnerEdge[0]},${chiZhangCenterPointOfInnerEdge[1]}`)
-    .attr('fill', 'none')
-    .attr('stroke', 'black')
-    .attr('stroke-width', '1px')
-    .attr('class', 'link-path'); // Class for styling and interaction
+        // Create a Bezier curve path between the two centroids
+        const linkPath = svg.append('path')
+            .attr('d', `M${libbaWilcoxCenterPointOfInnerEdge[0]},${libbaWilcoxCenterPointOfInnerEdge[1]} 
+                        C${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${libbaWilcoxCenterPointOfInnerEdge[1]} 
+                        ${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${chiZhangCenterPointOfInnerEdge[1]} 
+                        ${chiZhangCenterPointOfInnerEdge[0]},${chiZhangCenterPointOfInnerEdge[1]}`)
+            .attr('fill', 'none')
+            .attr('stroke', 'black')
+            .attr('stroke-width', '1px')
+            .attr('class', 'link-path'); // Class for styling and interaction
 
-// Add hover interactivity
-linkPath.on('mouseover', function() {
-    d3.select(this).attr('stroke-width', '3px'); // Highlight the link
-}).on('mouseout', function() {
-    d3.select(this).attr('stroke-width', '1px'); // Revert to normal
-});
+        // Add hover interactivity
+        linkPath.on('mouseover', function() {
+            d3.select(this).attr('stroke-width', '3px'); // Highlight the link
+        }).on('mouseout', function() {
+            d3.select(this).attr('stroke-width', '1px'); // Revert to normal
+        });
 
+
+        const collaborationLinks = [
+        {
+            professor_one: "Libba Wilcox",
+            professor_two: "Chi Zhang",
+            collaboration_works: [
+            {
+                title: "Collaborative Research Paper 1",
+                url: "http://link_to_paper_1.com",
+                // ... other properties specific to this work
+            },
+            {
+                title: "Collaborative Research Paper 2",
+                url: "http://link_to_paper_2.com",
+                // ... other properties specific to this work
+            },
+            {
+                title: "Collaborative Research Paper 2",
+                url: "http://link_to_paper_2.com",
+                // ... other properties specific to this work
+            },
+            {
+                title: "Collaborative Research Paper 2",
+                url: "http://link_to_paper_2.com",
+                // ... other properties specific to this work
+            },
+            {
+                title: "Collaborative Research Paper 2",
+                url: "http://link_to_paper_2.com",
+                // ... other properties specific to this work
+            },
+            {
+                title: "Collaborative Research Paper 2",
+                url: "http://link_to_paper_2.com",
+                // ... other properties specific to this work
+            },
+            // ... more objects representing each collaborative work
+            ]
+        },
+        // ... more objects for links between other professors
+        ];
+
+
+        // generate rectangle 
+        collaborationLinks.forEach(link => {
+            // Select the link path using the professors' names, assuming they are set as data attributes
+            const totalLength = linkPath.node().getTotalLength();
+
+            // For each collaboration work, create a rectangle along the link
+            link.collaboration_works.forEach((work, index, array) => {
+                const lengthAtPoint = (index + 0.5) * totalLength / link.collaboration_works.length;
+                // Calculate the position along the link for the current work
+                // This is a placeholder for the actual calculation
+                const point = linkPath.node().getPointAtLength(lengthAtPoint);
+
+                const nextPoint = linkPath.node().getPointAtLength(lengthAtPoint + 1);
+                const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI);
+
+                // Create a group for the collaboration work
+                const workGroup = svg.append('g')
+                .attr('class', 'collaboration-work')
+                .attr('transform', `translate(${point.x}, ${point.y - 2.5})  rotate(${angle})`);
+
+                // Append a rectangle to represent the collaboration work
+                workGroup.append('rect')
+                .attr('width', 10) // Set the width of the rectangle
+                .attr('height', 5) // Set the height of the rectangle
+                .attr('fill', 'steelblue') // Set the fill, could be based on some attribute
+                .on('mouseover', function() {
+                    d3.select(this).attr('fill', 'orange'); // Highlight on hover
+                    // Additional interactivity like tooltips could be added here
+                })
+                .on('mouseout', function() {
+                    d3.select(this).attr('fill', 'steelblue'); // Revert color on mouse out
+                })
+                .on('click', function() {
+                    alert(1);
+                })
+
+                // Add text or other elements to represent the work as needed
+            });
+        });
 
 
       })
