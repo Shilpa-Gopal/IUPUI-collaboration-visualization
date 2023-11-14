@@ -6,7 +6,7 @@
 </head>
 <body>
     <script>
-      d3.csv('categorized_faculty_updated.csv').then(function(d) {
+      d3.csv('./assets/categorized_faculty_updated.csv').then(function(d) {
         // Process data here
         // Create a mapping of school names to their professors' research areas
         const categorizedResearchData = d3.groups(d, d => d.schoolName, d => d.categorizedResearchArea);
