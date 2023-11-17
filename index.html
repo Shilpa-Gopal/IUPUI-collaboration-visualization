@@ -41,6 +41,9 @@
                     researchArea: area,
                     totalNumberOfProfessors: professors.length,
                     detailedInformation: professors.map(professor => {
+                        const categorizedResearchAreas = professor.categorizedResearchArea.includes(' | ')
+                            ? professor.categorizedResearchArea.split(' | ')
+                            : [professor.categorizedResearchArea];
                         return {
                             name: professor.name,
                             schoolName: school,
@@ -157,12 +160,12 @@
             .sort(null);
 
         const researchAreas = Array.from(new Set(hierarchy.flatMap(d => d.professors.flatMap(p => p.researchArea))));
-        
+        console.log(researchAreas);
         // Create an ordinal scale for research areas
         const colorScale = d3.scaleOrdinal()
             .domain(researchAreas)
             .range([
-                "#383867", "#584c77", "#33431e", "#a36629",
+                "#383867", "#584c77", "#b69236", "#a36629",
                 "#92462f", "#b63e36", "#b74a70", "#946943",
                 "#383867", "#584c77", "#33431e", "#a36629",
                 "#92462f", "#b63e36", "#b74a70", "#946943"
@@ -173,15 +176,39 @@
             .data(outerPie(professors))
             .enter()
             .append('svg:g')
+            .attr('data-name', d => d.data.name)
             .attr('class', 'professor-arc')
 
-        profArcs.append("svg:path")
-            .attr('class', 'professor-arc')
-            .attr('d', arcOuter)
-            .attr("data-name", d=> d.data.name)
-            .attr('fill', professors => colorScale(professors.data.categorizedResearchArea))
-            .style("stroke", "black")
-            .style("stroke-width", 1)
+        profArcs.each(function(d) {
+            // Split the categorizedResearchArea into an array and calculate the number of areas
+            const element = d3.select(this); // Capture the current element
+            const areas = d.data.categorizedResearchArea.split(' | ');
+            const numAreas = areas.length;
+
+            // Calculate the thickness of each layer
+            const totalRadius = arcOuter.outerRadius()() - arcOuter.innerRadius()();
+            const layerThickness = totalRadius / numAreas;
+
+            areas.forEach((area, i) => {
+                // Define inner and outer radii for each layer
+                const innerRadius = arcOuter.innerRadius()() + i * layerThickness;
+                const outerRadius = innerRadius + layerThickness;
+
+                // Create a new arc generator for each layer
+                const arcLayer = d3.arc()
+                    .innerRadius(innerRadius)
+                    .outerRadius(outerRadius)
+                    .startAngle(d.startAngle)
+                    .endAngle(d.endAngle);
+                // Append a path for each layer with the appropriate color
+                element.append('path')
+                    .attr('d', arcLayer)
+                    .attr('fill', colorScale(area))
+                    .attr('class', 'professor-arc-layer')
+                    .style('stroke', 'black')
+                    .style('stroke-width', 0.5);
+            });
+        });
 
         profArcs.append('text')
             .text(d => d.data.name)
@@ -218,92 +245,109 @@
             .text(d => d); // Assuming the domain is the actual 'categorizedResearchArea' text
         
         // Find the centroid for each node (Libba Wilcox and Chi Zhang)
-        const libbaWilcoxNode = svg.select('.professor-arc[data-name="Libba Wilcox"]'); // Assuming you have data attributes set
-        const chiZhangNode = svg.select('.professor-arc[data-name="Chi Zhang"]');
+        const libbaWilcoxNode = svg.select('.professor-arc[data-name="Sarath Janga"]'); // Assuming you have data attributes set
+        const chiZhangNode = svg.select('.professor-arc[data-name="Juexin Wang"]');
 
 
         function calculateInnerArcMidpoint(d, arcGenerator) {
-        // Calculate the mid-angle of the arc slice
-        const midAngle = (d._groups[0][0].__data__.startAngle + d._groups[0][0].__data__.endAngle) / 2;
+            // Calculate the mid-angle of the arc slice
+            const midAngle = (d._groups[0][0].__data__.startAngle + d._groups[0][0].__data__.endAngle) / 2;
 
-        // Calculate the outer radius of the arcGenerator
-        const innerRadius = arcGenerator.innerRadius()();
+            // Calculate the outer radius of the arcGenerator
+            const innerRadius = arcGenerator.innerRadius()();
 
-        // Calculate the x and y coordinates on the circumference of the pie at the midAngle
-        const x = innerRadius * Math.cos(midAngle - Math.PI / 2);
-        const y = innerRadius * Math.sin(midAngle - Math.PI / 2);
+            // Calculate the x and y coordinates on the circumference of the pie at the midAngle
+            const x = innerRadius * Math.cos(midAngle - Math.PI / 2);
+            const y = innerRadius * Math.sin(midAngle - Math.PI / 2);
 
-        return [x, y];
+            return [x, y];
         }
 
-        // Example use for "Libba Wilcox" and "Chi Zhang"
-        const libbaWilcoxCenterPointOfInnerEdge = calculateInnerArcMidpoint(libbaWilcoxNode, arcOuter);
-        const chiZhangCenterPointOfInnerEdge = calculateInnerArcMidpoint(chiZhangNode, arcOuter);
 
 
-        // Create a Bezier curve path between the two centroids
-        const linkPath = svg.append('path')
-            .attr('d', `M${libbaWilcoxCenterPointOfInnerEdge[0]},${libbaWilcoxCenterPointOfInnerEdge[1]} 
-                        C${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${libbaWilcoxCenterPointOfInnerEdge[1]} 
-                        ${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${chiZhangCenterPointOfInnerEdge[1]} 
-                        ${chiZhangCenterPointOfInnerEdge[0]},${chiZhangCenterPointOfInnerEdge[1]}`)
-            .attr('fill', 'none')
-            .attr('stroke', 'black')
-            .attr('stroke-width', '1px')
-            .attr('class', 'link-path'); // Class for styling and interaction
+        // // Example use for "Libba Wilcox" and "Chi Zhang"
+        // const libbaWilcoxCenterPointOfInnerEdge = calculateInnerArcMidpoint(libbaWilcoxNode, arcOuter);
+        // const chiZhangCenterPointOfInnerEdge = calculateInnerArcMidpoint(chiZhangNode, arcOuter);
 
-        // Add hover interactivity
-        linkPath.on('mouseover', function() {
-            d3.select(this).attr('stroke-width', '3px'); // Highlight the link
-        }).on('mouseout', function() {
-            d3.select(this).attr('stroke-width', '1px'); // Revert to normal
-        });
+        // // Create a Bezier curve path between the two centroids
+        // const linkPath = svg.append('path')
+        //     .attr('d', `M${libbaWilcoxCenterPointOfInnerEdge[0]},${libbaWilcoxCenterPointOfInnerEdge[1]} 
+        //                 C${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${libbaWilcoxCenterPointOfInnerEdge[1]}
+        //                 Q${centerPoint[0]},${centerPoint[1]}
+        //                 ${(libbaWilcoxCenterPointOfInnerEdge[0] + chiZhangCenterPointOfInnerEdge[0]) / 2},${chiZhangCenterPointOfInnerEdge[1]} 
+        //                 ${chiZhangCenterPointOfInnerEdge[0]},${chiZhangCenterPointOfInnerEdge[1]}`)
+        //     .attr('fill', 'none')
+        //     .attr('stroke', 'black')
+        //     .attr('stroke-width', '1px')
+        //     .attr('class', 'link-path'); // Class for styling and interaction
 
-
-        const collaborationLinks = [
-        {
-            professor_one: "Libba Wilcox",
-            professor_two: "Chi Zhang",
-            collaboration_works: [
+        const collaborationLinks = 
+        [
             {
-                title: "Collaborative Research Paper 1",
-                url: "http://link_to_paper_1.com",
-                // ... other properties specific to this work
+                professor_one: "Yao Liang",
+                professor_two: "Bohdan Khomtchouk",
+                collaboration_works: [
+                    {
+                        title: "Collaborative Research Paper 1",
+                        url: "http://link_to_paper_1.com",
+                        // ... other properties specific to this work
+                    },
+                    {
+                        title: "Collaborative Research Paper 2",
+                        url: "http://link_to_paper_2.com",
+                        // ... other properties specific to this work
+                    }
+                    // ... more objects representing each collaborative work
+                ]
             },
             {
-                title: "Collaborative Research Paper 2",
-                url: "http://link_to_paper_2.com",
-                // ... other properties specific to this work
+                professor_one: "Yao Liang",
+                professor_two: "Spyridon Bakas",
+                collaboration_works: [
+                    {
+                        title: "Collaborative Research Paper 1",
+                        url: "http://link_to_paper_1.com",
+                        // ... other properties specific to this work
+                    },
+                    {
+                        title: "Collaborative Research Paper 2",
+                        url: "http://link_to_paper_2.com",
+                        // ... other properties specific to this work
+                    }
+                    // ... more objects representing each collaborative work
+                ]
             },
-            {
-                title: "Collaborative Research Paper 2",
-                url: "http://link_to_paper_2.com",
-                // ... other properties specific to this work
-            },
-            {
-                title: "Collaborative Research Paper 2",
-                url: "http://link_to_paper_2.com",
-                // ... other properties specific to this work
-            },
-            {
-                title: "Collaborative Research Paper 2",
-                url: "http://link_to_paper_2.com",
-                // ... other properties specific to this work
-            },
-            {
-                title: "Collaborative Research Paper 2",
-                url: "http://link_to_paper_2.com",
-                // ... other properties specific to this work
-            },
-            // ... more objects representing each collaborative work
-            ]
-        },
         // ... more objects for links between other professors
         ];
-
-
+        
+        // Calculate the center point of the pie chart
+        const centerPoint = [0, 0];
         // generate rectangle 
         collaborationLinks.forEach(link => {
+
+            const sourceNode = svg.select(`.professor-arc[data-name="${link.professor_one}"]`);
+            const targetNode = svg.select(`.professor-arc[data-name="${link.professor_two}"]`);
+
+            const sourceCenterPoint = calculateInnerArcMidpoint(sourceNode, arcOuter);
+            const targetCenterPoint = calculateInnerArcMidpoint(targetNode, arcOuter);
+
+            // Create a Bezier curve path that passes through the center of the pie chart
+            const linkPath = svg.append('path')
+                .attr('d', `M${sourceCenterPoint[0]},${sourceCenterPoint[1]}
+                            Q${centerPoint[0]},${centerPoint[1]}
+                            ${targetCenterPoint[0]},${targetCenterPoint[1]}`)
+                .attr('fill', 'none')
+                .attr('stroke', 'black')
+                .attr('stroke-width', '1px')
+                .attr('class', 'link-path'); // Class for styling and interaction
+
+            // Add hover interactivity
+            linkPath.on('mouseover', function() {
+                d3.select(this).attr('stroke-width', '3px'); // Highlight the link
+            }).on('mouseout', function() {
+                d3.select(this).attr('stroke-width', '1px'); // Revert to normal
+            });
+
             // Select the link path using the professors' names, assuming they are set as data attributes
             const totalLength = linkPath.node().getTotalLength();
 
@@ -315,17 +359,23 @@
                 const point = linkPath.node().getPointAtLength(lengthAtPoint);
 
                 const nextPoint = linkPath.node().getPointAtLength(lengthAtPoint + 1);
-                const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI);
+                //const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI);
+                const angle = Math.atan2(
+            linkPath.node().getPointAtLength(lengthAtPoint + 1).y - point.y,
+            linkPath.node().getPointAtLength(lengthAtPoint + 1).x - point.x
+        ) * (180 / Math.PI);
 
                 // Create a group for the collaboration work
                 const workGroup = svg.append('g')
                 .attr('class', 'collaboration-work')
-                .attr('transform', `translate(${point.x}, ${point.y - 2.5})  rotate(${angle})`);
-
+                .attr('transform', `translate(${point.x}, ${point.y})  rotate(${angle})`);
+                const rectHeight = 5;
                 // Append a rectangle to represent the collaboration work
                 workGroup.append('rect')
-                .attr('width', 10) // Set the width of the rectangle
-                .attr('height', 5) // Set the height of the rectangle
+                .attr('width', 5) // Set the width of the rectangle
+                .attr('height', rectHeight) // Set the height of the rectangle
+                .attr('x', -rectHeight / 2)
+                .attr('y', -rectHeight / 2)
                 .attr('fill', 'steelblue') // Set the fill, could be based on some attribute
                 .on('mouseover', function() {
                     d3.select(this).attr('fill', 'orange'); // Highlight on hover
