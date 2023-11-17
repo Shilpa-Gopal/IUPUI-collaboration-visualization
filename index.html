@@ -151,19 +151,27 @@
             .style("opacity", 0.7)
 
 
-        // For professors, we need to flatten the hierarchy to get all professors
+        // // For professors, we need to flatten the hierarchy to get all professors
         const professors = hierarchy.flatMap(school => school.professors.flatMap(prof => prof.detailedInformation));
-        // Select and append path elements for professors
 
         const outerPie = d3.pie()
             .value(professors => 1) // Assuming this is the property for professor count
             .sort(null);
 
-        const researchAreas = Array.from(new Set(hierarchy.flatMap(d => d.professors.flatMap(p => p.researchArea))));
-        console.log(researchAreas);
+        // Flatten all research areas into a single array, splitting multiple areas and trimming spaces
+        const allResearchAreas = hierarchy.flatMap(d => 
+            d.professors.flatMap(p => 
+                p.researchArea.split('|').map(area => area.trim())
+            )
+        );
+
+        // Deduplicate the research areas
+        const uniqueResearchAreas = Array.from(new Set(allResearchAreas));
+
+        
         // Create an ordinal scale for research areas
         const colorScale = d3.scaleOrdinal()
-            .domain(researchAreas)
+            .domain(uniqueResearchAreas)
             .range([
                 "#383867", "#584c77", "#b69236", "#a36629",
                 "#92462f", "#b63e36", "#b74a70", "#946943",
