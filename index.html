@@ -5,6 +5,11 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 <body>
+    <div id="popover" style="position: absolute; opacity: 0; pointer-events: none; background-color: white; border: 1px solid black; padding: 10px; border-radius: 5px; display: none;">
+        <h3 id="popover-title"></h3>
+        <p id="popover-content"></p>
+        <!-- You can add more elements as needed -->
+    </div>
     <script>
       d3.csv('./assets/categorized_faculty_updated.csv').then(function(d) {
         // Process data here
@@ -113,7 +118,7 @@
         // Define the inner arc for schools
         const arcInner = d3.arc()
             .outerRadius(radius - 100)
-            .innerRadius(radius - 385); // If you want a pie chart, the inner radius should be 0
+            .innerRadius(radius - 285); // If you want a pie chart, the inner radius should be 0
 
 
         // Select and append path elements for schools
@@ -122,6 +127,8 @@
             .enter()
             .append("svg:g")
             .attr("class", "school-arc")
+
+        console.log(hierarchy);
 
         function angle(d) {
             let a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
@@ -132,16 +139,48 @@
         schools.append("svg:path")
             .attr('class', 'school-arc')
             .attr('d', arcInner)
-            .attr('fill', (d, i) => d3.schemeCategory10[i % 10]) // Color scale for schools
+            .attr('fill', (d, i) => d3.interpolateRainbow(i/ 20)) // Color scale for schools
+            .style('stroke', 'black')
+            .style('stroke-width', 0.3)
             .style("opacity", 0.2)
+
+        /* 
+            Break texts into separate lines
+        */
+        function wrap(text, width ) {
+            text.each(function() {
+                let text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1, // ems
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy")),
+                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+                while (word = words.pop()) {
+                line.push(word);
+                tspan.text(line.join(" "));
+                if (tspan.node().getComputedTextLength() > width) {
+                    line.pop();
+                    tspan.text(line.join(" "));
+                    line = [word];
+                    tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                }
+                }
+            });
+            }
+
 
         // add text to the inner pie chart
         // calculate the angle that the text needs to rotate
         schools
             .append('text')
-            .text(d => d.data.schoolName)
+            .attr("dy", "0.35em")
+            .text(function(d) {
+                return d.data.schoolName
+            }).call(wrap, 250)
             .style('text-anchor', 'middle') // Center the text
-            .attr("dy", ".35em")
             .style('font-size', 12)
             .attr("transform", d => {
                 d.innerRadius = 0;
@@ -149,6 +188,42 @@
                 return "translate(" + arcInner.centroid(d) + ")rotate(" + angle(d) + ")";
             })
             .style("opacity", 0.7)
+
+        
+        // schools.each(function(d) {
+
+        //     if (d.data.schoolName === label) {
+        //         console.log(label);
+        //         d3.select(this)
+        //             .append('text')
+        //             .text('') // Clear existing text
+        //             .append('tspan')
+        //             .attr('x', 0)
+        //             .attr('y', '-0.5em') // Position the first line slightly above the center
+        //             .text(firstLine);
+
+        //         d3.select(this)
+        //             .append('tspan')
+        //             .attr('x', 0)
+        //             .attr('y', '1em') // Position the second line slightly below the center
+        //             .text(secondLine);
+        //     } else {
+        //         // Handle other labels normally
+        //         d3.select(this)
+        //             .append("text")
+        //             .text(d => d.data.schoolName)
+        //             .style('text-anchor', 'middle') // Center the text
+        //             .attr("dy", ".35em")
+        //             .style('font-size', 12)
+        //             .attr("transform", d => {
+        //                 d.innerRadius = 0;
+        //                 d.outerRadius = height / 2;
+        //                 return "translate(" + arcInner.centroid(d) + ")rotate(" + angle(d) + ")";
+        //             })
+        //             .style("opacity", 0.7)
+        //     }
+        // });
+
 
 
         // // For professors, we need to flatten the hierarchy to get all professors
@@ -168,15 +243,17 @@
         // Deduplicate the research areas
         const uniqueResearchAreas = Array.from(new Set(allResearchAreas));
 
-        
         // Create an ordinal scale for research areas
         const colorScale = d3.scaleOrdinal()
             .domain(uniqueResearchAreas)
             .range([
-                "#383867", "#584c77", "#b69236", "#a36629",
-                "#92462f", "#b63e36", "#b74a70", "#946943",
-                "#383867", "#584c77", "#33431e", "#a36629",
-                "#92462f", "#b63e36", "#b74a70", "#946943"
+                "#d6d6f5", "#d0d0d0", "#f3e4d2", "#d8b6a4",
+                "#a78b82", "#d9a5a5", "#d9b6c4", "#b8a899",
+                "#8c8cb7", "#9da3bd", "#8c9a85", "#d8b6a4",
+                "#a78b82", "#d9a5a5", "#d9b6c4", "#b8a899",
+                "#e6f7ff", "#ffebf5", "#ffe6e6", "#fff0e6",
+                "#f7ffe6", "#e6ffe6", "#e6faff", "#e6f2ff",
+                "#f2e6ff", "#ffe6f7"
             ]); // or any other preferred color scheme
 
 
@@ -289,169 +366,91 @@
         //     .attr('stroke-width', '1px')
         //     .attr('class', 'link-path'); // Class for styling and interaction
 
-        const collaborationLinks = 
+        // Assuming the center circle's radius
+        const centerCircleRadius = radius - 350; // Adjust as needed
+
+        const collaborationWorks = 
         [
             {
-                professor_one: "Yao Liang",
-                professor_two: "Bohdan Khomtchouk",
-                collaboration_works: [
-                    {
-                        title: "Collaborative Research Paper 1",
-                        url: "http://link_to_paper_1.com",
-                        // ... other properties specific to this work
-                    },
-                    {
-                        title: "Collaborative Research Paper 2",
-                        url: "http://link_to_paper_2.com",
-                        // ... other properties specific to this work
-                    }
-                    // ... more objects representing each collaborative work
-                ]
+                involvedProfessors: ["Yao Liang", "Bohdan Khomtchouk", "Miyeon Jung"],
+                workType: "paper",
+                title: "test",
+                link: "http://www.google.com",
             },
             {
-                professor_one: "Yao Liang",
-                professor_two: "Spyridon Bakas",
-                collaboration_works: [
-                    {
-                        title: "Collaborative Research Paper 1",
-                        url: "http://link_to_paper_1.com",
-                        // ... other properties specific to this work
-                    },
-                    {
-                        title: "Collaborative Research Paper 2",
-                        url: "http://link_to_paper_2.com",
-                        // ... other properties specific to this work
-                    }
-                    // ... more objects representing each collaborative work
-                ]
-            },
-            {
-                professor_one: "Yao Liang",
-                professor_two: "Yuni Xia",
-                collaboration_works: [
-                    {
-                        title: "Collaborative Research Paper 1",
-                        url: "http://link_to_paper_1.com",
-                        // ... other properties specific to this work
-                    },
-                    {
-                        title: "Collaborative Research Paper 2",
-                        url: "http://link_to_paper_2.com",
-                        // ... other properties specific to this work
-                    }
-                    // ... more objects representing each collaborative work
-                ]
-            },
-            {
-                professor_one: "Yao Liang",
-                professor_two: "Spyridon Bakas",
-                collaboration_works: [
-                    {
-                        title: "Collaborative Research Paper 1",
-                        url: "http://link_to_paper_1.com",
-                        // ... other properties specific to this work
-                    },
-                    {
-                        title: "Collaborative Research Paper 2",
-                        url: "http://link_to_paper_2.com",
-                        // ... other properties specific to this work
-                    }
-                    // ... more objects representing each collaborative work
-                ]
-            },
-            {
-                professor_one: "Yao Liang",
-                professor_two: "Timothy Hsu",
-                collaboration_works: [
-                    {
-                        title: "Collaborative Research Paper 1",
-                        url: "http://link_to_paper_1.com",
-                        // ... other properties specific to this work
-                    },
-                    {
-                        title: "Collaborative Research Paper 2",
-                        url: "http://link_to_paper_2.com",
-                        // ... other properties specific to this work
-                    }
-                    // ... more objects representing each collaborative work
-                ]
-            },
-        // ... more objects for links between other professors
+                involvedProfessors: ["Juexin Wang", "Hyeju Jang"],
+                workType: "paper",
+                title: "test1",
+                link: "http://www.google.com",
+            }
         ];
-        
-        // Calculate the center point of the pie chart
-        const centerPoint = [0, 0];
-        // generate rectangle 
-        collaborationLinks.forEach(link => {
 
-            const sourceNode = svg.select(`.professor-arc[data-name="${link.professor_one}"]`);
-            const targetNode = svg.select(`.professor-arc[data-name="${link.professor_two}"]`);
+        // Select the popover element
+        const popover = d3.select("#popover");
 
-            const sourceCenterPoint = calculateInnerArcMidpoint(sourceNode, arcOuter);
-            const targetCenterPoint = calculateInnerArcMidpoint(targetNode, arcOuter);
+        centerPoint = [0,0];
 
-            // Create a Bezier curve path that passes through the center of the pie chart
-            const linkPath = svg.append('path')
-                .attr('d', `M${sourceCenterPoint[0]},${sourceCenterPoint[1]}
-                            Q${centerPoint[0]},${centerPoint[1]}
-                            ${targetCenterPoint[0]},${targetCenterPoint[1]}`)
-                .attr('fill', 'none')
-                .attr('stroke', 'black')
-                .attr('stroke-width', '1px')
-                .attr('class', 'link-path'); // Class for styling and interaction
+        // Generate collaboration rectangles
+        collaborationWorks.forEach((work, index) => {
+            // Random position within the center circle
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * centerCircleRadius;
+            const rectX = centerPoint[0] + distance * Math.cos(angle);
+            const rectY = centerPoint[1] + distance * Math.sin(angle);
 
-            // Add hover interactivity
-            linkPath.on('mouseover', function() {
-                d3.select(this).attr('stroke-width', '3px'); // Highlight the link
-            }).on('mouseout', function() {
-                d3.select(this).attr('stroke-width', '1px'); // Revert to normal
+            // Create a rectangle for the collaboration
+            const rectWidth = 10; // Set desired width
+            const rectHeight = 5; // Set desired height
+            
+
+            // Create links from the rectangle to each involved professor
+            work.involvedProfessors.forEach((professorName, index) => {
+                const professorNode = svg.select(`.professor-arc[data-name="${professorName}"]`);
+                const professorCenterPoint = calculateInnerArcMidpoint(professorNode, arcOuter);
+
+                // Determine control points for the Bezier curve
+                // These can be adjusted to change the curve's shape
+                const controlPoint1 = [rectX, (rectY + professorCenterPoint[1]) / 2];
+                const controlPoint2 = [professorCenterPoint[0], (rectY + professorCenterPoint[1]) / 2];
+
+
+                // Draw a line from the rectangle to the professor's slice
+                const linkPath = svg.append('path')
+                    .attr('d', `M${rectX},${rectY} C${controlPoint1[0]},${controlPoint1[1]} ${controlPoint2[0]},${controlPoint2[1]} ${professorCenterPoint[0]},${professorCenterPoint[1]}`)
+                    .attr('fill', 'none')
+                    .attr('class', `${work.title}`)
+                    .attr('stroke', 'black')
+                    .attr('stroke-width', 1);
             });
 
-            // Select the link path using the professors' names, assuming they are set as data attributes
-            const totalLength = linkPath.node().getTotalLength();
-
-            // For each collaboration work, create a rectangle along the link
-            link.collaboration_works.forEach((work, index, array) => {
-                const lengthAtPoint = (index + 0.5) * totalLength / link.collaboration_works.length;
-                // Calculate the position along the link for the current work
-                // This is a placeholder for the actual calculation
-                const point = linkPath.node().getPointAtLength(lengthAtPoint);
-
-                const nextPoint = linkPath.node().getPointAtLength(lengthAtPoint + 1);
-                //const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI);
-                const angle = Math.atan2(
-            linkPath.node().getPointAtLength(lengthAtPoint + 1).y - point.y,
-            linkPath.node().getPointAtLength(lengthAtPoint + 1).x - point.x
-        ) * (180 / Math.PI);
-
-                // Create a group for the collaboration work
-                const workGroup = svg.append('g')
-                .attr('class', 'collaboration-work')
-                .attr('transform', `translate(${point.x}, ${point.y})  rotate(${angle})`);
-                const rectHeight = 5;
-                // Append a rectangle to represent the collaboration work
-                workGroup.append('rect')
-                .attr('width', 5) // Set the width of the rectangle
-                .attr('height', rectHeight) // Set the height of the rectangle
-                .attr('x', -rectHeight / 2)
-                .attr('y', -rectHeight / 2)
-                .attr('fill', 'steelblue') // Set the fill, could be based on some attribute
+            const rect = svg.append('rect')
+                .attr('x', rectX - rectWidth / 2)
+                .attr('y', rectY - rectHeight / 2)
+                .attr('width', rectWidth)
+                .attr('height', rectHeight)
+                .attr('fill', 'steelblue')
                 .on('mouseover', function() {
-                    d3.select(this).attr('fill', 'orange'); // Highlight on hover
-                    // Additional interactivity like tooltips could be added here
+                    // Highlight all lines connected to this rectangle
+                    svg.selectAll(`.${work.title}`)
+                        .attr('stroke-width', 3);  // Increase stroke width or any other highlighting style
+                    popover.select("#popover-title").text(d.title); // Set title
+                    popover.select("#popover-content").text(`${work.title}`); // Set content
+                    popover.style('display', 'block')
+                        .style('opacity', 1)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 28) + 'px');
                 })
                 .on('mouseout', function() {
-                    d3.select(this).attr('fill', 'steelblue'); // Revert color on mouse out
+                    // Revert the style of the lines
+                    svg.selectAll(`.${work.title}`)
+                        .attr('stroke-width', 1);
+                    popover.style('opacity', 0)
+                        .style('display', 'none');
                 })
                 .on('click', function() {
                     alert(1);
                 })
-
-                // Add text or other elements to represent the work as needed
-            });
         });
-
-
       })
         
       
