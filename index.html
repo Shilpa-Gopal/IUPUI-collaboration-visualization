@@ -139,9 +139,9 @@
         schools.append("svg:path")
             .attr('class', 'school-arc')
             .attr('d', arcInner)
-            .attr('fill', (d, i) => d3.interpolateRainbow(i/ 20)) // Color scale for schools
-            .style('stroke', 'black')
-            .style('stroke-width', 0.3)
+            .attr('fill', (d, i) => d3.interpolateSinebow(i/ 20)) // Color scale for schools
+            // .style('stroke', 'black')
+            // .style('stroke-width', 0.3)
             .style("opacity", 0.2)
 
         /* 
@@ -252,8 +252,7 @@
                 "#8c8cb7", "#9da3bd", "#8c9a85", "#d8b6a4",
                 "#a78b82", "#d9a5a5", "#d9b6c4", "#b8a899",
                 "#e6f7ff", "#ffebf5", "#ffe6e6", "#fff0e6",
-                "#f7ffe6", "#e6ffe6", "#e6faff", "#e6f2ff",
-                "#f2e6ff", "#ffe6f7"
+                "#f7ffe6", "#e6ffe6", "#e6f2ff", "79FEFF2"
             ]); // or any other preferred color scheme
 
 
