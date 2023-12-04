@@ -255,6 +255,8 @@
         // Deduplicate the research areas
         const uniqueResearchAreas = Array.from(new Set(allResearchAreas));
 
+
+
         // Create an ordinal scale for research areas
         const colorScale = d3.scaleOrdinal()
             .domain(uniqueResearchAreas)
@@ -397,11 +399,19 @@
             },
             {
                 involvedProfessors: ["Juexin Wang", "Hyeju Jang"],
-                workType: "paper",
+                workType: "funded-project",
+                title: "test1",
+                link: "http://www.google.com",
+            },
+            {
+                involvedProfessors: ["Juexin Wang", "Wei Wu"],
+                workType: "others",
                 title: "test1",
                 link: "http://www.google.com",
             }
         ];
+
+
 
         // Select the popover element
         const popover = d3.select("#popover");
@@ -417,8 +427,8 @@
             const rectY = centerPoint[1] + distance * Math.sin(angle);
 
             // Create a rectangle for the collaboration
-            const rectWidth = 15; // Set desired width
-            const rectHeight = 7.5; // Set desired height
+            const rectWidth = 20; // Set desired width
+            const rectHeight = 10; // Set desired height
             
 
             // Create links from the rectangle to each involved professor
@@ -441,12 +451,30 @@
                     .attr('stroke-width', 1);
             });
 
+
+            //workTypeColor
+
+            const workCategories = ["paper", "funded-project", "others"];
+
+            
+
+            const colorScale = d3.scaleOrdinal()
+            .domain(workCategories)
+            .range([
+                "#d6d6f5", "#d0d0d0", "#f3e4d2", "#d8b6a4",
+                "#a78b82", "#d9a5a5", "#d9b6c4", "#b8a899",
+                "#8c8cb7", "#9da3bd", "#8c9a85", "#d8b6a4",
+                "#a78b82", "#d9a5a5", "#d9b6c4", "#b8a899",
+                "#e6f7ff", "#ffebf5", "#ffe6e6", "#fff0e6",
+                "#f7ffe6", "#e6ffe6", "#e6f2ff", "79FEFF2"
+            ]); // or any other preferred color scheme
+
             const rect = svg.append('rect')
                 .attr('x', rectX - rectWidth / 2)
                 .attr('y', rectY - rectHeight / 2)
                 .attr('width', rectWidth)
                 .attr('height', rectHeight)
-                .attr('fill', 'steelblue')
+                .attr('fill', colorScale(work.workType))
                 .on('mouseover', function() {
                     // Highlight all lines connected to this rectangle
                     svg.selectAll(`.${work.title}`)
