@@ -54,7 +54,8 @@
                             schoolName: school,
                             email: professor.email,
                             researchArea: professor.researchArea,
-                            categorizedResearchArea: area
+                            categorizedResearchArea: area,
+                            websiteLink: professor.websiteLink
                         };
                     })
                 };
@@ -280,6 +281,12 @@
             const areas = d.data.categorizedResearchArea.split(' | ');
             const numAreas = areas.length;
 
+            element
+                .style("cursor", "pointer")
+                .on("click", () => {
+                        window.open(d.data.websiteLink, '_blank');
+                    })
+
             // Calculate the thickness of each layer
             const totalRadius = arcOuter.outerRadius()() - arcOuter.innerRadius()();
             const layerThickness = totalRadius / numAreas;
@@ -301,7 +308,7 @@
                     .attr('fill', colorScale(area))
                     .attr('class', 'professor-arc-layer')
                     .style('stroke', 'black')
-                    .style('stroke-width', 0.5);
+                    .style('stroke-width', 0.5)
             });
         });
 
