@@ -73,29 +73,39 @@
             .append('svg')
             .attr('width', width)
             .attr('height', height)
+            .attr("style", "max-width: 100%;height: intrinsic;")
             .append('g')
-            .attr('transform', `translate(${width / 2}, ${height / 2}) scale(1)`);
+            .attr('transform', `translate(${width / 2}, ${height / 2}) scale(0.5)`);
     
 
-        let initialStateX = 0;
-        let initialStateY = 0;
+        // let initialStateX = 0;
+        // let initialStateY = 0;
+        const initialZoomTransform = d3.zoomIdentity.translate(width / 3, height / 2).scale(0.5);
         const zoomBehavior = d3.zoom()
-            .scaleExtent([0.5, 5]) // Allow up to 5x zoom in
-            .on('start', (event) => {
-                if(event.transform.x <= 10) {
-                    initialStateX = width / 2;
-                    initialStateY = height / 2;
-                } else {
-                    initialStateX = 0;
-                    initialStateY = 0;
-                }
-            })
-            .on('zoom', (event) => {
-                event.transform.x += initialStateX;
-                event.transform.y += initialStateY;
-                svg.attr('transform', event.transform);
-            });
+    .scaleExtent([0.5, 5]) // Allow up to 5x zoom in
+    .on('zoom', (event) => {
+        svg.attr('transform', event.transform);
+    });
+        // const zoomBehavior = d3.zoom()
+        //     .scaleExtent([0.5, 5]) // Allow up to 5x zoom in
+        //     .on('start', (event) => {
+        //         if(event.transform.x <= 10) {
+        //             initialStateX = width / 2;
+        //             initialStateY = height / 2;
+        //         } else {
+        //             initialStateX = 0;
+        //             initialStateY = 0;
+        //         }
+        //     })
+        //     .on('zoom', (event) => {
+        //         event.transform.x += initialStateX;
+        //         event.transform.y += initialStateY;
+        //         svg.attr('transform', event.transform);
+        //     })
 
+        // Apply the zoom behavior to the SVG
+        d3.select('svg')
+            .call(zoomBehavior).call(zoomBehavior.transform, initialZoomTransform);
 
         // Define the drag behavior
         const dragBehavior = d3.drag()
@@ -111,10 +121,6 @@
                 // Perform actions when dragging ends (optional)
             });
 
-        // Apply the zoom behavior to the SVG
-        d3.select('svg')
-            .call(zoomBehavior);
-
         // Apply the drag behavior to each slice of the pie chart
         svg.selectAll('.professor-arc, .school-arc')
             .call(dragBehavior);
@@ -125,13 +131,13 @@
             .sort(null);
 
         const arcOuter = d3.arc()
-        .outerRadius(radius + 200)
-        .innerRadius(radius - 10);
+        .outerRadius(radius + 300)
+        .innerRadius(radius + 20);
 
         // Define the inner arc for schools
         const arcInner = d3.arc()
-            .outerRadius(radius - 30)
-            .innerRadius(radius - 285); // If you want a pie chart, the inner radius should be 0
+            .outerRadius(radius)
+            .innerRadius(radius - 325); // If you want a pie chart, the inner radius should be 0
 
 
         // Select and append path elements for schools
@@ -146,11 +152,29 @@
             return a > 90 ? a - 180 : a;
         }
 
+        let schoolColor = d3.scaleOrdinal([
+	"#ff544e",
+	"#00eed1",
+	"#8e39f5",
+	"#009100",
+	"#0015b4",
+	"#00c975",
+	"#a20088",
+	"#ffdd88",
+	"#0080e8",
+	"#ffa791",
+	"#008aa6",
+	"#f55dba",
+	"#b7e6ff",
+	"#ffabff",
+	"#e4bddb"
+]);
+
         // add round pie 
         schools.append("svg:path")
             .attr('class', 'school-arc')
             .attr('d', arcInner)
-            .attr('fill', (d, i) => d3.interpolateSinebow(i/ 20)) // Color scale for schools
+            .attr('fill', (d, i) => schoolColor(i)) // Color scale for schools
             // .style('stroke', 'black')
             // .style('stroke-width', 0.3)
             .style("opacity", 0.2)
@@ -165,7 +189,7 @@
                     word,
                     line = [],
                     lineNumber = 0,
-                    lineHeight = 1.1, // ems
+                    lineHeight = 0.6, // ems
                     y = text.attr("y"),
                     dy = parseFloat(text.attr("dy")),
                     tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
@@ -187,16 +211,63 @@
         // calculate the angle that the text needs to rotate
         schools
             .append('text')
-            .attr("dy", "0.35em")
+            .attr("dy", d => {
+                if(d.data.schoolName == "Lilly Family School of Philanthropy") {
+                    return "0em";
+                }
+                else if (d.data.schoolName == "School of Education") {
+                    return "0.35em";
+                }
+                else if(d.data.schoolName == "School of Health & Human Sciences") {
+                    return "0.06em";
+                }
+
+                return "0.15em";
+            })
             .text(function(d) {
                 return d.data.schoolName
-            }).call(wrap, 250)
+            }).call(wrap, 160)
             .style('text-anchor', 'middle') // Center the text
-            .style('font-size', 16)
+            .style('font-size', d => {
+                if(d.data.schoolName == "School of Health & Human Sciences") {
+                    return 28;
+                }
+                else if(d.data.schoolName == "Luddy School of Information, Computing and Engineering") {
+                    return 48;
+                }
+                else if(d.data.schoolName == "School of Medicine / Regenstrief") {
+                    return 34;
+                }
+                else if(d.data.schoolName == "Lilly Family School of Philanthropy") {
+                    return 20;
+                }
+                else if (d.data.schoolName == "School of Education") {
+                    return 20;
+                }
+                else if (d.data.schoolName == "School of Science") {
+                    return 42;
+                }
+                else if (d.data.schoolName == "School of Law") {
+                    return 48;
+                }
+                else if (d.data.schoolName == "Kelly School of Business") {
+                    return 48;
+                }
+                else if (d.data.schoolName == "School of Nursing") {
+                    return 40;
+                }
+                return 32;
+            })
             .style('font-weight', "bold")
             .attr("transform", d => {
                 d.innerRadius = 0;
                 d.outerRadius = height / 2;
+                if(d.data.schoolName == "Luddy School of Information, Computing and Engineering") {
+                    return "translate(" + arcInner.centroid(d) + ")rotate(" + 48.6 + ")";
+                }
+                // else if(d.data.schoolName == "School of Medicine / Regenstrief") {
+                //     return "translate(" + arcInner.centroid(d) + ")rotate(" + 78.6 + ")";
+                // }
                 return "translate(" + arcInner.centroid(d) + ")rotate(" + angle(d) + ")";
             })
             .style("opacity", 0.7)
@@ -260,14 +331,28 @@
         // Create an ordinal scale for research areas
         const colorScale = d3.scaleOrdinal()
             .domain(uniqueResearchAreas)
-            .range([
-                "#d6d6f5", "#d0d0d0", "#f3e4d2", "#d8b6a4",
-                "#a78b82", "#d9a5a5", "#d9b6c4", "#b8a899",
-                "#8c8cb7", "#9da3bd", "#8c9a85", "#d8b6a4",
-                "#a78b82", "#d9a5a5", "#d9b6c4", "#b8a899",
+            .range(["#9BE8DB", "#FFFFB4", "#CCC7E9", "#FFA591", "#96D1F8", "#FCB462", "#B2DE68", "#FCCDE5", "#D9D9D9", "#E79EE9", "#CCEBC5", "#FFED6F", "#cadeda", "#d7e3ee", "#fbe0dc", "#C7F9CA", "#eacbf9", "#e2c8d2", "#f1f6df", "#ede8e7", "#d4c8fa"]
+); // or any other preferred color scheme
+
+
+            
+/*
+[
+    "#f9f3d0", "#f9d4c9", "#ECF811", "#f0ceef", "#e4fde9", "#cde4ea", "#e1ddf8", "#e8e2da", "#d7d4f7", "#d2dde8", "#cbc8f1", "#cadeda", "#d7e3ee", "#fbe0dc", "#faded6", "#eacbf9", "#e2c8d2", "#f1f6df", "#ede8e7", "#d4c8fa"
+]
+*/
+
+/* 
+[
+                "#d6d6f5", "#d0d0d0", "#f3e4d2", "#F7D0E0",
+                "#FFE71D", "#d9a5a5", "#FED6E6", "#7DFC3A",
+                "#fcd0cc", "#D2DAFD", "#D7EECC", "#d8b6a4",
+                "#FED4C7", "#d9a5a5", "#d9b6c4", "#F7E4CF",
                 "#e6f7ff", "#ffebf5", "#ffe6e6", "#fff0e6",
                 "#f7ffe6", "#e6ffe6", "#e6f2ff", "79FEFF2"
-            ]); // or any other preferred color scheme
+            ]
+*/
+        // #f9f3d0
 
 
         let profArcs = svg.selectAll('g.professor-arc')
@@ -316,9 +401,10 @@
 
         profArcs.append('text')
             .text(d => d.data.name)
+            .attr("dy", ".05em")
+            .call(wrap, 150)
             .style('text-anchor', 'middle') // Center the text
-            .attr("dy", ".35em")
-            .style('font-size', 16)
+            .style('font-size', 28)
             .style('font-weight', "bold")
             .attr("transform", d => {
                 d.innerRadius = 0;
@@ -332,7 +418,7 @@
             .data(colorScale.domain()) // Assuming this returns the unique categorized research areas
             .enter().append("g")
             .attr("class", "legend")
-            .attr("transform", (d, i) => `translate(${-2700},` + i * 20 + ")"); // Adjust spacing to fit your layout
+            .attr("transform", (d, i) => `translate(${-2800},` + i * 20 + ")"); // Adjust spacing to fit your layout
 
         // Draw legend colored rectangles
         legend.append("rect")
@@ -394,19 +480,19 @@
             {
                 involvedProfessors: ["Yao Liang", "Bohdan Khomtchouk", "Miyeon Jung"],
                 workType: "paper",
-                title: "test",
+                title: "Paper",
                 link: "http://www.google.com",
             },
             {
                 involvedProfessors: ["Juexin Wang", "Hyeju Jang"],
                 workType: "funded-project",
-                title: "test1",
+                title: "Funded-project",
                 link: "http://www.google.com",
             },
             {
                 involvedProfessors: ["Juexin Wang", "Wei Wu"],
                 workType: "others",
-                title: "test1",
+                title: "Proposal",
                 link: "http://www.google.com",
             }
         ];
@@ -461,12 +547,7 @@
             const colorScale = d3.scaleOrdinal()
             .domain(workCategories)
             .range([
-                "#d6d6f5", "#d0d0d0", "#f3e4d2", "#d8b6a4",
-                "#a78b82", "#d9a5a5", "#d9b6c4", "#b8a899",
-                "#8c8cb7", "#9da3bd", "#8c9a85", "#d8b6a4",
-                "#a78b82", "#d9a5a5", "#d9b6c4", "#b8a899",
-                "#e6f7ff", "#ffebf5", "#ffe6e6", "#fff0e6",
-                "#f7ffe6", "#e6ffe6", "#e6f2ff", "79FEFF2"
+                "#FE4A49", "#FED766", "#009FB7"
             ]); // or any other preferred color scheme
 
             const rect = svg.append('rect')
@@ -503,3 +584,5 @@
     </script>
 </body>
 </html>
+
+

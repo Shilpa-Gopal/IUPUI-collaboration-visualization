@@ -1,50 +1,27 @@
 id,name,email,researchArea,schoolName,categorizedResearchArea,websiteLink
-1,Mohammad Al Hasan,alhasan@iupui.edu,"Data mining, Machine Learning","Luddy School of Informatics, 
-Computing and Engineering",Data Science,https://luddy.iupui.edu/contact/profile/mohammad-al-hasan
-2,Fawzi BenMessaoud,fawzbenm@iupui.edu,AI in education,"Luddy School of Informatics, 
-Computing and Engineering",AI in Education and Career Development,https://luddy.iupui.edu/contact/profile/fawzi-benmessaoud
-3,Davide Bolchini,dbolchin@iupui.edu,HCI,"Luddy School of Informatics, 
-Computing and Engineering",HCI / Visualization,https://luddy.iupui.edu/contact/profile/davide-bolchini
-4,Sunandan Chakraborty,sunchak@iu.edu,"Data Science, NLP","Luddy School of Informatics, 
-Computing and Engineering",Data Science,https://luddy.iupui.edu/contact/profile/sunandan-chakraborty
-5,Arjan Durresi,durresi@cs.iupui.edu,Trust in AI,"Luddy School of Informatics, 
-Computing and Engineering","Trust, Privacy and Security in AI",https://luddy.iupui.edu/contact/profile/arjan-durresi
-6,Shiaofen Fang,shfang@iu.edu,"Interactive AI, Visualization, Medical image analysis","Luddy School of Informatics, 
-Computing and Engineering",Computer Vision and Imaging | HCI / Visualization,https://luddy.iupui.edu/contact/profile/shiaofen-fang
-7,James Hill,hilljh@iupui.edu,AI in software testing,"Luddy School of Informatics, 
-Computing and Engineering",Machine Learning & Data Mining,https://luddy.iupui.edu/contact/profile/james-hill
-8,Qin Hu,qinhu@iu.edu,Data privacy and security,"Luddy School of Informatics, 
-Computing and Engineering","Trust, Privacy and Security in AI",https://luddy.iupui.edu/contact/profile/qin-hu
-9,Hyeju Jang,hyejuj@iupui.edu,"NLP, AI in healthcare","Luddy School of Informatics, 
-Computing and Engineering",AI in Health Informatics,https://luddy.iupui.edu/contact/profile/hyeju-jang
-10,Sarath Janga,scjanga@iupui.edu,AI in bioinformatics,"Luddy School of Informatics, 
-Computing and Engineering",AI in Bioinformatics,https://luddy.iupui.edu/contact/profile/sarath-janga
-11,Ming Jiang,mj200@iu.edu,"NLP, Data science","Luddy School of Informatics, 
-Computing and Engineering",Data Science,https://luddy.iupui.edu/contact/profile/ming-jiang
-12,Kyle Jones,kmlj@iupui.edu,Information ethics and policies,"Luddy School of Informatics, 
-Computing and Engineering","AI Policies, Philosophy, Ethics and Societal Impact",https://luddy.iupui.edu/contact/profile/kyle-jones
-13,Bohdan Khomtchouk,bokhomt@iu.edu,"AI in bioinformatics, cardioinformatics.","Luddy School of Informatics, 
-Computing and Engineering",AI in Bioinformatics,https://luddy.iupui.edu/contact/profile/bohdan-khomtchouk
-14,Yao Liang,yaoliang@iupui.edu,"Cyberphysical systems, sensors","Luddy School of Informatics, 
-Computing and Engineering",Cyber-Physical Systems,https://luddy.iupui.edu/contact/profile/yao-liang
-15,Karl MacDorman,kmacdorm@iu.edu,"HCI, human-robot interaction","Luddy School of Informatics, 
-Computing and Engineering",HCI / Visualization,https://luddy.iupui.edu/contact/profile/karl-macdorman
-16,Aqueasha Martin-Hammond,aqumarti@iupui.edu,"HCI, AI in health informatics, ","Luddy School of Informatics, 
-Computing and Engineering",AI in Health Informatics,https://luddy.iupui.edu/contact/profile/aqueasha-martin-hammond
-17,Angela Murillo,apmurill@iu.edu,Data Science,"Luddy School of Informatics, 
-Computing and Engineering",Data Science,https://luddy.iupui.edu/contact/profile/angela-murillo
-18,Saptarshi Purkayastha,saptpurk@iupui.edu,AI in health informatics,"Luddy School of Informatics, 
-Computing and Engineering",AI in Health Informatics,https://luddy.iupui.edu/contact/profile/saptarshi-purkayastha
-19,Khairi Reda,redak@iupui.edu,"HCI, Visualization","Luddy School of Informatics, 
-Computing and Engineering",HCI / Visualization,https://luddy.iupui.edu/contact/profile/khairi-reda
-20,Juexin Wang,wangjuex@iu.edu,"AI in bioinformatics, Machine learning","Luddy School of Informatics, 
-Computing and Engineering",AI in Bioinformatics,https://luddy.iupui.edu/contact/profile/juexin-wang
-21,Yuni Xia,yuxia@iupui.edu,"Data mining, Databases, AI in education","Luddy School of Informatics, 
-Computing and Engineering",AI in Education and Career Development,https://luddy.iupui.edu/contact/profile/yuni-xia
-22,Jingwen Yan,jingyan@iupui.edu,"AI in bioinformatics, Machine learning","Luddy School of Informatics, 
-Computing and Engineering",AI in Bioinformatics,https://luddy.iupui.edu/contact/profile/jingwen-yan
-23,Xukai Zou,xzou@iupui.edu,"Cybersecurity, Data privacy","Luddy School of Informatics, 
-Computing and Engineering","Trust, Privacy and Security in AI",https://luddy.iupui.edu/contact/profile/xukai-zou
+1,Mohammad Al Hasan,alhasan@iupui.edu,"Data mining, Machine Learning","Luddy School of Information, Computing and Engineering",Data Science,https://luddy.iupui.edu/contact/profile/mohammad-al-hasan
+2,Fawzi BenMessaoud,fawzbenm@iupui.edu,AI in education,"Luddy School of Information, Computing and Engineering",AI in Education and Career Development,https://luddy.iupui.edu/contact/profile/fawzi-benmessaoud
+3,Davide Bolchini,dbolchin@iupui.edu,HCI,"Luddy School of Information, Computing and Engineering",HCI / Visualization,https://luddy.iupui.edu/contact/profile/davide-bolchini
+4,Sunandan Chakraborty,sunchak@iu.edu,"Data Science, NLP","Luddy School of Information, Computing and Engineering",Data Science,https://luddy.iupui.edu/contact/profile/sunandan-chakraborty
+5,Arjan Durresi,durresi@cs.iupui.edu,Trust in AI,"Luddy School of Information, Computing and Engineering","Trust, Privacy and Security in AI",https://luddy.iupui.edu/contact/profile/arjan-durresi
+6,Shiaofen Fang,shfang@iu.edu,"Interactive AI, Visualization, Medical image analysis","Luddy School of Information, Computing and Engineering",Computer Vision and Imaging | HCI / Visualization,https://luddy.iupui.edu/contact/profile/shiaofen-fang
+7,James Hill,hilljh@iupui.edu,AI in software testing,"Luddy School of Information, Computing and Engineering",Machine Learning & Data Mining,https://luddy.iupui.edu/contact/profile/james-hill
+8,Qin Hu,qinhu@iu.edu,Data privacy and security,"Luddy School of Information, Computing and Engineering","Trust, Privacy and Security in AI",https://luddy.iupui.edu/contact/profile/qin-hu
+9,Hyeju Jang,hyejuj@iupui.edu,"NLP, AI in healthcare","Luddy School of Information, Computing and Engineering",AI in Health Informatics,https://luddy.iupui.edu/contact/profile/hyeju-jang
+10,Sarath Janga,scjanga@iupui.edu,AI in bioinformatics,"Luddy School of Information, Computing and Engineering",AI in Bioinformatics,https://luddy.iupui.edu/contact/profile/sarath-janga
+11,Ming Jiang,mj200@iu.edu,"NLP, Data science","Luddy School of Information, Computing and Engineering",Data Science,https://luddy.iupui.edu/contact/profile/ming-jiang
+12,Kyle Jones,kmlj@iupui.edu,Information ethics and policies,"Luddy School of Information, Computing and Engineering","AI Policies, Philosophy, Ethics and Societal Impact",https://luddy.iupui.edu/contact/profile/kyle-jones
+13,Bohdan Khomtchouk,bokhomt@iu.edu,"AI in bioinformatics, cardioinformatics.","Luddy School of Information, Computing and Engineering",AI in Bioinformatics,https://luddy.iupui.edu/contact/profile/bohdan-khomtchouk
+14,Yao Liang,yaoliang@iupui.edu,"Cyberphysical systems, sensors","Luddy School of Information, Computing and Engineering",Cyber-Physical Systems,https://luddy.iupui.edu/contact/profile/yao-liang
+15,Karl MacDorman,kmacdorm@iu.edu,"HCI, human-robot interaction","Luddy School of Information, Computing and Engineering",HCI / Visualization,https://luddy.iupui.edu/contact/profile/karl-macdorman
+16,Aqueasha Martin-Hammond,aqumarti@iupui.edu,"HCI, AI in health informatics, ","Luddy School of Information, Computing and Engineering",AI in Health Informatics,https://luddy.iupui.edu/contact/profile/aqueasha-martin-hammond
+17,Angela Murillo,apmurill@iu.edu,Data Science,"Luddy School of Information, Computing and Engineering",Data Science,https://luddy.iupui.edu/contact/profile/angela-murillo
+18,Saptarshi Purkayastha,saptpurk@iupui.edu,AI in health informatics,"Luddy School of Information, Computing and Engineering",AI in Health Informatics,https://luddy.iupui.edu/contact/profile/saptarshi-purkayastha
+19,Khairi Reda,redak@iupui.edu,"HCI, Visualization","Luddy School of Information, Computing and Engineering",HCI / Visualization,https://luddy.iupui.edu/contact/profile/khairi-reda
+20,Juexin Wang,wangjuex@iu.edu,"AI in bioinformatics, Machine learning","Luddy School of Information, Computing and Engineering",AI in Bioinformatics,https://luddy.iupui.edu/contact/profile/juexin-wang
+21,Yuni Xia,yuxia@iupui.edu,"Data mining, Databases, AI in education","Luddy School of Information, Computing and Engineering",AI in Education and Career Development,https://luddy.iupui.edu/contact/profile/yuni-xia
+22,Jingwen Yan,jingyan@iupui.edu,"AI in bioinformatics, Machine learning","Luddy School of Information, Computing and Engineering",AI in Bioinformatics,https://luddy.iupui.edu/contact/profile/jingwen-yan
+23,Xukai Zou,xzou@iupui.edu,"Cybersecurity, Data privacy","Luddy School of Information, Computing and Engineering","Trust, Privacy and Security in AI",https://luddy.iupui.edu/contact/profile/xukai-zou
 24,Spyridon Bakas,spbakas@iu.edu,"Federated learning, Medical image analysis",School of Medicine / Regenstrief,Computer Vision and Imaging,https://medicine.iu.edu/faculty/64865/bakas-spyridon
 25,Sha Cao,shacao@iu.edu,"Statistical machine learning, Data science",School of Medicine / Regenstrief,AI in Bioinformatics,https://medicine.iu.edu/faculty/38873/cao-sha
 26,Andrew Gonzalez,andrewg@iu.edu,AI in healthcare,School of Medicine / Regenstrief,AI in Health Informatics,https://medicine.iu.edu/faculty/47578/gonzalez-andrew
