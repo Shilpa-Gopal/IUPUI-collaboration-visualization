@@ -153,9 +153,9 @@
         }
 
         let schoolColor = d3.scaleOrdinal([
-	"#ff544e",
-	"#00eed1",
-	"#8e39f5",
+	"#901E09",
+	"#005E99",
+	"#6925ba",
 	"#009100",
 	"#0015b4",
 	"#00c975",
@@ -166,8 +166,8 @@
 	"#008aa6",
 	"#f55dba",
 	"#b7e6ff",
-	"#ffabff",
-	"#e4bddb"
+	"#fa78fa",
+	"#a17f99"
 ]);
 
         // add round pie 
@@ -177,7 +177,7 @@
             .attr('fill', (d, i) => schoolColor(i)) // Color scale for schools
             // .style('stroke', 'black')
             // .style('stroke-width', 0.3)
-            .style("opacity", 0.2)
+            .style("opacity", 0.5)
 
         /* 
             Break texts into separate lines
@@ -270,7 +270,7 @@
                 // }
                 return "translate(" + arcInner.centroid(d) + ")rotate(" + angle(d) + ")";
             })
-            .style("opacity", 0.7)
+            .style("opacity", 1)
 
         
         // schools.each(function(d) {
@@ -485,14 +485,14 @@
             },
             {
                 involvedProfessors: ["Juexin Wang", "Hyeju Jang"],
-                workType: "funded-project",
-                title: "Funded-project",
+                workType: "project",
+                title: "Project",
                 link: "http://www.google.com",
             },
             {
                 involvedProfessors: ["Juexin Wang", "Wei Wu"],
                 workType: "others",
-                title: "Proposal",
+                title: "Others",
                 link: "http://www.google.com",
             }
         ];
@@ -540,7 +540,7 @@
 
             //workTypeColor
 
-            const workCategories = ["paper", "funded-project", "others"];
+            const workCategories = ["paper", "project", "others"];
 
             
 
