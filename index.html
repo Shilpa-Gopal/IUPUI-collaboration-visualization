@@ -249,8 +249,11 @@
                 else if(d.data.schoolName == "Luddy School of Informatics, Computing, and Engineering") {
                     return 48;
                 }
-                else if(d.data.schoolName == "School of Medicine / Regenstrief") {
-                    return 34;
+                else if(d.data.schoolName == "Herron School of Art") {
+                    return 35;
+                }
+                else if(d.data.schoolName == "School of Medicine/Regenstrief") {
+                    return 48;
                 }
                 else if(d.data.schoolName == "Lilly Family School of Philanthropy") {
                     return 24;
@@ -264,8 +267,8 @@
                 else if (d.data.schoolName == "School of Law") {
                     return 48;
                 }
-                else if (d.data.schoolName == "Kelly School of Business") {
-                    return 48;
+                else if (d.data.schoolName == "Kelley School of Business") {
+                    return 44;
                 }
                 else if (d.data.schoolName == "School of Nursing") {
                     return 40;
@@ -281,6 +284,12 @@
                     const adjustedX = centroid[0] - 50;
                     const adjustedY = centroid[1] + 0;
                     return `translate(${adjustedX}, ${adjustedY})rotate(-58.6)`;
+                }
+                else if(d.data.schoolName == "School of Medicine/Regenstrief") {
+                    const centroid = arcInner.centroid(d);
+                    const adjustedX = centroid[0];
+                    const adjustedY = centroid[1] - 20;
+                    return `translate(${adjustedX}, ${adjustedY})rotate(58.6)`;
                 }
                 // else if(d.data.schoolName == "School of Medicine / Regenstrief") {
                 //     return "translate(" + arcInner.centroid(d) + ")rotate(" + 78.6 + ")";
@@ -350,17 +359,23 @@
         const colorScale = d3.scaleOrdinal()
             .domain(uniqueResearchAreas)
             .range([
-    "#FFCCCC", "#CCFFCC", "#CCCCFF", "#FFFFCC", "#FFCCFF", "#CCFFFF", 
-    "#FFD8CC", "#D8FFCC", "#CCD8FF", "#D8CCFF", "#FFCCD8", "#CCFFD8", 
-    "#D8FFD8", "#FFD8D8", "#D8D8FF", "#E8D8FF", "#FFD8E8", "#D8FFE8", 
-    "#E8FFD8", "#D8E8FF", "#FFCCE8", "#E8CCFF", "#FFE8CC", "#CCE8FF", 
-    "#E8FFCC", "#CCFFE8", "#FFE8D8", "#D8E8D8", "#E8D8D8", "#D8D8E8", 
-    "#F0E0D0", "#D0F0E0", "#E0D0F0", "#F0D0E0", "#E0F0D0", "#D0E0F0", 
-    "#F0F0D0", "#D0F0F0", "#F0D0F0", "#D0D0F0", "#F0E0F0", "#F0F0E0", 
-    "#E0F0F0", "#E0D0D0", "#D0E0E0", "#E0E0D0", "#F0D0D0", "#D0F0D0", 
-    "#D0D0F0", "#F0F0D0", "#F0E0E0", "#E0F0E0", "#E0E0F0", "#F0F0E0"
+    "#FFD1DC", "#AEC6CF", "#FDFD96", "#FFB3DE", "#B2FBA5", "#FFABAB", 
+    "#C1F0F6", "#BDB2FF", "#FFC6FF", "#FFFFB3", "#CAFFBF", "#B5EAD7", 
+    "#FF9AA2", "#FFDAC1", "#E2F0CB", "#B5EAD7", "#C7CEEA", "#ECC19C", 
+    "#FFB7B2", "#FFD5CD", "#FBE4C2", "#FFF5BA", "#CCE2CB", "#C3E5AE", 
+    "#AED9E0", "#ACE7EF", "#AFDCEC", "#B9B0D9", "#D4B9CB", "#DEBDD8", 
+    "#E5CFEA", "#E4C1F9", "#ECD4E5", "#F4C7DE", "#E7A9A7", "#FFDFD3", 
+    "#FAE1DD", "#EAD2AC", "#ECE2AF", "#E6E2D3", "#C9E4DE", "#B5E5D5", 
+    "#BFD8BD", "#B0C4B1", "#A4C3B2", "#9CC3D5", "#C9CBFF", "#C5A3FF", 
+    "#FFB7C5", "#FFC8A2"
 ]
 ); // or any other preferred color scheme
+
+
+/*
+
+["#9BE8DB", "#FFFFB4", "#CCC7E9", "#FFA591", "#96D1F8", "#FCB462", "#B2DE68", "#FCCDE5", "#D9D9D9", "#E79EE9", "#CCEBC5", "#FFED6F", "#cadeda", "#d7e3ee", "#fbe0dc", "#C7F9CA", "#eacbf9", "#e2c8d2", "#f1f6df", "#ede8e7", "#d4c8fa"]
+*/
 
 /*
 [
@@ -374,6 +389,30 @@
     "#E0F0F0", "#E0D0D0", "#D0E0E0", "#E0E0D0", "#F0D0D0", "#D0F0D0", 
     "#D0D0F0", "#F0F0D0", "#F0E0E0", "#E0F0E0", "#E0E0F0", "#F0F0E0"
 ]
+
+const colorScale = [
+    "#FFB6C1", "#87CEFA", "#F0E68C", "#DDA0DD", "#90EE90", "#FFA07A", 
+    "#20B2AA", "#778899", "#B0C4DE", "#FFFFE0", "#00FF7F", "#32CD32", 
+    "#48D1CC", "#AFEEEE", "#7FFFD4", "#66CDAA", "#DB7093", "#FF69B4", 
+    "#CD5C5C", "#F08080", "#B22222", "#FFA500", "#FFD700", "#EEE8AA", 
+    "#BDB76B", "#DAA520", "#ADFF2F", "#7FFF00", "#98FB98", "#3CB371", 
+    "#00FA9A", "#00FF00", "#228B22", "#008B8B", "#00CED1", "#1E90FF", 
+    "#4682B4", "#5F9EA0", "#6495ED", "#00BFFF", "#1E90FF", "#4169E1", 
+    "#6A5ACD", "#7B68EE", "#9370DB", "#8A2BE2", "#9400D3", "#9932CC", 
+    "#BA55D3", "#D8BFD8"
+];
+
+const colorScale = [
+    "#FFD1DC", "#AEC6CF", "#FDFD96", "#FFB3DE", "#B2FBA5", "#FFABAB", 
+    "#C1F0F6", "#BDB2FF", "#FFC6FF", "#FFFFB3", "#CAFFBF", "#B5EAD7", 
+    "#FF9AA2", "#FFDAC1", "#E2F0CB", "#B5EAD7", "#C7CEEA", "#ECC19C", 
+    "#FFB7B2", "#FFD5CD", "#FBE4C2", "#FFF5BA", "#CCE2CB", "#C3E5AE", 
+    "#AED9E0", "#ACE7EF", "#AFDCEC", "#B9B0D9", "#D4B9CB", "#DEBDD8", 
+    "#E5CFEA", "#E4C1F9", "#ECD4E5", "#F4C7DE", "#E7A9A7", "#FFDFD3", 
+    "#FAE1DD", "#EAD2AC", "#ECE2AF", "#E6E2D3", "#C9E4DE", "#B5E5D5", 
+    "#BFD8BD", "#B0C4B1", "#A4C3B2", "#9CC3D5", "#C9CBFF", "#C5A3FF", 
+    "#FFB7C5", "#FFC8A2"
+];
 
 */
 
