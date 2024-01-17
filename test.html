@@ -12,10 +12,6 @@
     </div>
     <script type="text/javascript" src="./assets/config.js"></script>
     <script>
-        
-    d3.json(schoolsAPI).then((d) => {
-        console.log(d);
-    });
     Promise.all([
         fetch(schoolsAPI).then(response => response.json()),
         fetch(areasAPI).then(response => response.json()),
@@ -55,8 +51,6 @@
 
         });
 
-        console.log(facultyMap);
-
         // Step 4: Create hierarchy
         const hierarchy = [...schoolMap.entries()].map(([schoolId, schoolName]) => {
             const professors = [...facultyMap.values()].filter(prof => prof.schoolName === schoolName);
@@ -74,8 +68,8 @@
                 })
             };
         });
-        console.log(hierarchy);
 
+        
         // Now you have a hierarchy array ready for visualization
                // Set dimensions and margins for the SVG container
                const width = 1920,
@@ -246,7 +240,7 @@
                 if(d.data.schoolName == "School of Health & Human Sciences") {
                     return 32;
                 }
-                else if(d.data.schoolName == "Luddy School of Informatics, Computing, and Engineering") {
+                else if(d.data.schoolName == "Luddy School of Information, Computing and Engineering") {
                     return 48;
                 }
                 else if(d.data.schoolName == "School of Medicine / Regenstrief") {
@@ -276,11 +270,8 @@
             .attr("transform", d => {
                 d.innerRadius = 0;
                 d.outerRadius = height / 2;
-                if(d.data.schoolName == "Luddy School of Informatics, Computing, and Engineering") {
-                    const centroid = arcInner.centroid(d);
-                    const adjustedX = centroid[0] - 50;
-                    const adjustedY = centroid[1] + 0;
-                    return `translate(${adjustedX}, ${adjustedY})rotate(-58.6)`;
+                if(d.data.schoolName == "Luddy School of Information, Computing and Engineering") {
+                    return "translate(" + arcInner.centroid(d) + ")rotate(" + 48.6 + ")";
                 }
                 // else if(d.data.schoolName == "School of Medicine / Regenstrief") {
                 //     return "translate(" + arcInner.centroid(d) + ")rotate(" + 78.6 + ")";
@@ -349,35 +340,28 @@
         // Create an ordinal scale for research areas
         const colorScale = d3.scaleOrdinal()
             .domain(uniqueResearchAreas)
-            .range([
-    "#FFCCCC", "#CCFFCC", "#CCCCFF", "#FFFFCC", "#FFCCFF", "#CCFFFF", 
-    "#FFD8CC", "#D8FFCC", "#CCD8FF", "#D8CCFF", "#FFCCD8", "#CCFFD8", 
-    "#D8FFD8", "#FFD8D8", "#D8D8FF", "#E8D8FF", "#FFD8E8", "#D8FFE8", 
-    "#E8FFD8", "#D8E8FF", "#FFCCE8", "#E8CCFF", "#FFE8CC", "#CCE8FF", 
-    "#E8FFCC", "#CCFFE8", "#FFE8D8", "#D8E8D8", "#E8D8D8", "#D8D8E8", 
-    "#F0E0D0", "#D0F0E0", "#E0D0F0", "#F0D0E0", "#E0F0D0", "#D0E0F0", 
-    "#F0F0D0", "#D0F0F0", "#F0D0F0", "#D0D0F0", "#F0E0F0", "#F0F0E0", 
-    "#E0F0F0", "#E0D0D0", "#D0E0E0", "#E0E0D0", "#F0D0D0", "#D0F0D0", 
-    "#D0D0F0", "#F0F0D0", "#F0E0E0", "#E0F0E0", "#E0E0F0", "#F0F0E0"
-]
+            .range(["#9BE8DB", "#FFFFB4", "#CCC7E9", "#FFA591", "#96D1F8", "#FCB462", "#B2DE68", "#FCCDE5", "#D9D9D9", "#E79EE9", "#CCEBC5", "#FFED6F", "#cadeda", "#d7e3ee", "#fbe0dc", "#C7F9CA", "#eacbf9", "#e2c8d2", "#f1f6df", "#ede8e7", "#d4c8fa"]
 ); // or any other preferred color scheme
 
-/*
-[
-    "#FFCCCC", "#CCFFCC", "#CCCCFF", "#FFFFCC", "#FFCCFF", "#CCFFFF", 
-    "#FFD8CC", "#D8FFCC", "#CCD8FF", "#D8CCFF", "#FFCCD8", "#CCFFD8", 
-    "#D8FFD8", "#FFD8D8", "#D8D8FF", "#E8D8FF", "#FFD8E8", "#D8FFE8", 
-    "#E8FFD8", "#D8E8FF", "#FFCCE8", "#E8CCFF", "#FFE8CC", "#CCE8FF", 
-    "#E8FFCC", "#CCFFE8", "#FFE8D8", "#D8E8D8", "#E8D8D8", "#D8D8E8", 
-    "#F0E0D0", "#D0F0E0", "#E0D0F0", "#F0D0E0", "#E0F0D0", "#D0E0F0", 
-    "#F0F0D0", "#D0F0F0", "#F0D0F0", "#D0D0F0", "#F0E0F0", "#F0F0E0", 
-    "#E0F0F0", "#E0D0D0", "#D0E0E0", "#E0E0D0", "#F0D0D0", "#D0F0D0", 
-    "#D0D0F0", "#F0F0D0", "#F0E0E0", "#E0F0E0", "#E0E0F0", "#F0F0E0"
-]
-
-*/
 
             
+/*
+[
+    "#f9f3d0", "#f9d4c9", "#ECF811", "#f0ceef", "#e4fde9", "#cde4ea", "#e1ddf8", "#e8e2da", "#d7d4f7", "#d2dde8", "#cbc8f1", "#cadeda", "#d7e3ee", "#fbe0dc", "#faded6", "#eacbf9", "#e2c8d2", "#f1f6df", "#ede8e7", "#d4c8fa"
+]
+*/
+
+/* 
+[
+                "#d6d6f5", "#d0d0d0", "#f3e4d2", "#F7D0E0",
+                "#FFE71D", "#d9a5a5", "#FED6E6", "#7DFC3A",
+                "#fcd0cc", "#D2DAFD", "#D7EECC", "#d8b6a4",
+                "#FED4C7", "#d9a5a5", "#d9b6c4", "#F7E4CF",
+                "#e6f7ff", "#ffebf5", "#ffe6e6", "#fff0e6",
+                "#f7ffe6", "#e6ffe6", "#e6f2ff", "79FEFF2"
+            ]
+*/
+        // #f9f3d0
 
 
         let profArcs = svg.selectAll('g.professor-arc')
@@ -391,6 +375,7 @@
             // Split the categorizedResearchArea into an array and calculate the number of areas
             const element = d3.select(this); // Capture the current element
             const areas = d.data.researchArea;
+            console.log(areas);
             const numAreas = areas.length;
 
             element
@@ -568,6 +553,7 @@
                     // Highlight all lines connected to this rectangle
                     svg.selectAll(`.${work.title}`)
                         .attr('stroke-width', 3);  // Increase stroke width or any other highlighting style
+                    popover.select("#popover-title").text(d.title); // Set title
                     popover.select("#popover-content").text(`${work.title}`); // Set content
                     popover.style('display', 'block')
                         .style('opacity', 1)
@@ -588,6 +574,42 @@
 
 
     });
+
+      
+      d3.csv('./assets/categorized_faculty_updated.csv').then(function(d) {
+        console.log(d);
+        // Process data here
+        // Create a mapping of school names to their professors' research areas
+        const categorizedResearchData = d3.groups(d, d => d.schoolName, d => d.categorizedResearchArea);
+        // Convert the categorized data into a structure suitable for a hierarchical pie chart
+        const hierarchy = categorizedResearchData.map(([school, areas]) => {
+          return {
+            schoolName: school,
+            totalNumberOfProfessors: d3.sum(areas, ([, professors]) => professors.length),
+            professors: areas.map(([area, professors]) => {
+                return {
+                    researchArea: area,
+                    totalNumberOfProfessors: professors.length,
+                    detailedInformation: professors.map(professor => {
+                        const categorizedResearchAreas = professor.categorizedResearchArea.includes(' | ')
+                            ? professor.categorizedResearchArea.split(' | ')
+                            : [professor.categorizedResearchArea];
+                        return {
+                            name: professor.name,
+                            schoolName: school,
+                            email: professor.email,
+                            researchArea: professor.researchArea,
+                            categorizedResearchArea: area,
+                            websiteLink: professor.websiteLink
+                        };
+                    })
+                };
+            })
+          };
+        });
+
+
+      })
         
       
     </script>
