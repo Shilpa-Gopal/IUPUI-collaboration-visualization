@@ -96,7 +96,7 @@
         // let initialStateY = 0;
         const initialZoomTransform = d3.zoomIdentity.translate(width / 3, height / 2).scale(0.5);
         const zoomBehavior = d3.zoom()
-    .scaleExtent([0.5, 5]) // Allow up to 5x zoom in
+    .scaleExtent([0.1, 5]) // Allow up to 5x zoom in
     .on('zoom', (event) => {
         svg.attr('transform', event.transform);
     });
