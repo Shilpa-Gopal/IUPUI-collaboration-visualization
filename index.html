@@ -13,9 +13,6 @@
     <script type="text/javascript" src="./assets/config.js"></script>
     <script>
         
-    d3.json(schoolsAPI).then((d) => {
-        console.log(d);
-    });
     Promise.all([
         fetch(schoolsAPI).then(response => response.json()),
         fetch(areasAPI).then(response => response.json()),
@@ -27,35 +24,31 @@
             schoolMap.set(school.id, school.fields.School);
         });
 
-        console.log(schoolMap);
-
         // Step 2: Process Faculty Data
         const facultyMap = new Map();
         facultyData.forEach(faculty => {
-            console.log(faculty)
             // Assume faculty.fields.School is the ID of the school
             const schoolName = schoolMap.get(faculty.fields.School[0]);
-            const researchAreas = faculty.fields.AreasName; // Array of research area IDs
-            console.log(researchAreas);
+            const researchAreas = faculty.fields.CategoryName; // Array of research area IDs
             // Process research areas
+            
 
-            const categorizedResearchAreas = researchAreas.map(areaId => {
-                // Find area name by ID in areasData
-                const area = areasData.find(area => area.id === areaId);
-                return area ? area.fields.AreaName : "";
-            });
+            // const categorizedResearchAreas = researchAreas.map(areaId => {
+            //     // Find area name by ID in areasData
+            //     const area = areasData.find(area => area.id === areaId);
+            //     console.log()
+            //     return area ? area.fields.CategoryName : "";
+            // });
 
             facultyMap.set(faculty.id, {
                 name: faculty.fields.FirstName + " " + faculty.fields.LastName,
                 email: faculty.fields.Email,
                 schoolName: schoolName,
                 researchArea: researchAreas,
-                websiteLink: faculty.fields.Website
+                websiteURL: faculty.fields.WebsiteURL
             });
 
         });
-
-        console.log(facultyMap);
 
         // Step 4: Create hierarchy
         const hierarchy = [...schoolMap.entries()].map(([schoolId, schoolName]) => {
@@ -74,7 +67,6 @@
                 })
             };
         });
-        console.log(hierarchy);
 
         // Now you have a hierarchy array ready for visualization
                // Set dimensions and margins for the SVG container
@@ -127,7 +119,6 @@
             })
             .on('drag', (event, d) => {
                 // Reposition the element being dragged
-                console.log(event);
                 d3.select(this)
                     .attr('transform', `translate(${event.x}, ${event.y})`);
             })
@@ -342,13 +333,15 @@
         const outerPie = d3.pie()
             .value(professors => 1) // Assuming this is the property for professor count
             .sort(null);
-
+        
+            console.log(hierarchy);
         // Flatten all research areas into a single array, splitting multiple areas and trimming spaces
         const allResearchAreas = hierarchy.flatMap(d => 
             d.professors.flatMap(p => 
-                p.researchArea.map(area => area.trim())
+                p.researchArea ? p.researchArea.map(area => area.trim()) : 'AI Policies, Ethics, and Societal Impact'
             )
         );
+        console.log(allResearchAreas)
 
         // Deduplicate the research areas
         const uniqueResearchAreas = Array.from(new Set(allResearchAreas));
@@ -429,13 +422,14 @@ const colorScale = [
         profArcs.each(function(d) {
             // Split the categorizedResearchArea into an array and calculate the number of areas
             const element = d3.select(this); // Capture the current element
-            const areas = d.data.researchArea;
-            const numAreas = areas.length;
+            const areas = d.data.researchArea ? d.data.researchArea : ['AI Policies, Ethics, and Societal Impact'];
+            const numAreas = areas ? areas.length : 1;
+
 
             element
                 .style("cursor", "pointer")
                 .on("click", () => {
-                        window.open(d.data.websiteLink, '_blank');
+                        window.open(d.data.websiteURL, '_blank');
                     })
 
             // Calculate the thickness of each layer
