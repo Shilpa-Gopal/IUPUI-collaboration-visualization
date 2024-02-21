@@ -33,13 +33,6 @@
             // Process research areas
             
 
-            // const categorizedResearchAreas = researchAreas.map(areaId => {
-            //     // Find area name by ID in areasData
-            //     const area = areasData.find(area => area.id === areaId);
-            //     console.log()
-            //     return area ? area.fields.CategoryName : "";
-            // });
-
             facultyMap.set(faculty.id, {
                 name: faculty.fields.FirstName + " " + faculty.fields.LastName,
                 email: faculty.fields.Email,
@@ -334,14 +327,12 @@
             .value(professors => 1) // Assuming this is the property for professor count
             .sort(null);
         
-            console.log(hierarchy);
         // Flatten all research areas into a single array, splitting multiple areas and trimming spaces
         const allResearchAreas = hierarchy.flatMap(d => 
             d.professors.flatMap(p => 
                 p.researchArea ? p.researchArea.map(area => area.trim()) : 'AI Policies, Ethics, and Societal Impact'
             )
         );
-        console.log(allResearchAreas)
 
         // Deduplicate the research areas
         const uniqueResearchAreas = Array.from(new Set(allResearchAreas));
