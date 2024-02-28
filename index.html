@@ -216,8 +216,8 @@
                 else if (d.data.schoolName == "School of Education") {
                     return "0.35em";
                 }
-                else if(d.data.schoolName == "School of Health & Human Sciences") {
-                    return "0.12em";
+                else if(d.data.schoolName == "School of Health and Human Sciences") {
+                    return "0em";
                 }
 
                 return "0.15em";
@@ -227,7 +227,7 @@
             }).call(wrap, 160)
             .style('text-anchor', 'middle') // Center the text
             .style('font-size', d => {
-                if(d.data.schoolName == "School of Health & Human Sciences") {
+                if(d.data.schoolName == "School of Health and Human Sciences") {
                     return 32;
                 }
                 else if(d.data.schoolName == "Luddy School of Informatics, Computing, and Engineering") {
@@ -243,7 +243,7 @@
                     return 24;
                 }
                 else if (d.data.schoolName == "School of Education") {
-                    return 32;
+                    return 28;
                 }
                 else if (d.data.schoolName == "School of Science") {
                     return 42;
@@ -343,9 +343,9 @@
         const colorScale = d3.scaleOrdinal()
             .domain(uniqueResearchAreas)
             .range([
-    "#FFD1DC", "#AEC6CF", "#FDFD96", "#FFB3DE", "#B2FBA5", "#FFABAB", 
-    "#C1F0F6", "#BDB2FF", "#FFC6FF", "#FFFFB3", "#CAFFBF", "#B5EAD7", 
-    "#FF9AA2", "#FFDAC1", "#E2F0CB", "#B5EAD7", "#C7CEEA", "#ECC19C", 
+    "#FFD1DC", "#AEC6CF", "#fafa2a", "#FFB3DE", "#8cfa78", "#FFABAB", 
+    "#C1F0F6", "#BDB2FF", "#FFC6FF", "#FFFFB3", "#CAFFBF", "#3cfab6", 
+    "#FF9AA2", "#FFDAC1", "#cef78b", "#B5EAD7", "#C7CEEA", "#ECC19C", 
     "#FFB7B2", "#FFD5CD", "#FBE4C2", "#FFF5BA", "#CCE2CB", "#C3E5AE", 
     "#AED9E0", "#ACE7EF", "#AFDCEC", "#B9B0D9", "#D4B9CB", "#DEBDD8", 
     "#E5CFEA", "#E4C1F9", "#ECD4E5", "#F4C7DE", "#E7A9A7", "#FFDFD3", 
