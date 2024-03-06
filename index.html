@@ -512,19 +512,19 @@ const colorScale = [
             {
                 involvedProfessors: ["Yao Liang", "Bohdan Khomtchouk", "Miyeon Jung"],
                 workType: "paper",
-                title: "Paper",
+                description: "Paper",
                 link: "http://www.google.com",
             },
             {
                 involvedProfessors: ["Juexin Wang", "Hyeju Jang"],
                 workType: "project",
-                title: "Project",
+                description: "Project",
                 link: "http://www.google.com",
             },
             {
                 involvedProfessors: ["Juexin Wang", "Wei Wu"],
                 workType: "others",
-                title: "Others",
+                description: "Others",
                 link: "http://www.google.com",
             }
         ];
@@ -606,7 +606,7 @@ const colorScale = [
                         .style('display', 'none');
                 })
                 .on('click', function() {
-                    alert(1);
+                    window.open(work.link, '_blank');
                 })
         });
 
