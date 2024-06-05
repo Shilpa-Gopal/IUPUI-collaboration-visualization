@@ -10,14 +10,16 @@
         <p id="popover-content"></p>
         <!-- You can add more elements as needed -->
     </div>
-    <script type="text/javascript" src="./assets/config.js"></script>
+    <script type="text/javascript" src="assets/config.js"></script>
     <script>
-        
+       
+
     Promise.all([
         fetch(schoolsAPI).then(response => response.json()),
-        fetch(areasAPI).then(response => response.json()),
-        fetch(facultyAPI).then(response => response.json())
-    ]).then(function([schoolsData, areasData, facultyData]) {
+        // fetch(areasAPI).then(response => response.json()),
+        fetch(facultyAPI).then(response => response.json()),
+        fetch(papersAPI).then(response => response.json()), // // Fetching the papers data
+    ]).then(function([schoolsData, facultyData, papersData]) {
         // Step 1: Process Schools Data
         const schoolMap = new Map();
         schoolsData.forEach(school => {
@@ -39,6 +41,27 @@
                 schoolName: schoolName,
                 researchArea: researchAreas,
                 websiteURL: faculty.fields.WebsiteURL
+            });
+
+        });
+
+        // Step 2: Process Papers Data
+        const papersMap = new Map();
+        papersData.forEach(papers => {
+            const title = papers.fields.Title
+            const workType = papers.fields.WorkType
+            const authorIds = papers.fields.Faculty
+
+            const authors = authorIds.map(authorId => {
+                const authorDetails = facultyMap.get(authorId);
+                return authorDetails ? authorDetails.name : "Unknown"
+            })
+
+            papersMap.set(papers.id, {
+                title: title,
+                workType: workType,
+                authors: authors,
+                url: papers.fields.URL
             });
 
         });
@@ -507,30 +530,16 @@ const colorScale = [
         // Assuming the center circle's radius
         const centerCircleRadius = radius - 350; // Adjust as needed
 
-        const collaborationWorks = 
-        [
-            {
-                involvedProfessors: ["Yao Liang", "Bohdan Khomtchouk", "Miyeon Jung"],
-                workType: "paper",
-                title: "Paper",
-                link: "http://www.google.com",
-            },
-            {
-                involvedProfessors: ["Juexin Wang", "Hyeju Jang"],
-                workType: "project",
-                title: "Project",
-                link: "http://www.google.com",
-            },
-            {
-                involvedProfessors: ["Juexin Wang", "Wei Wu"],
-                workType: "others",
-                title: "Others",
-                link: "http://www.google.com",
-            }
-        ];
+        const collaborationWorks = Array.from(papersMap.values()).map((papers, index) => {
+            return {
+                involvedProfessors: papers.authors,
+                workType: papers.workType,
+                title: papers.title,
+                link: papers.url
+            };
+        });
 
-
-
+        
         // Select the popover element
         const popover = d3.select("#popover");
 
@@ -546,7 +555,7 @@ const colorScale = [
 
             // Create a rectangle for the collaboration
             const rectWidth = 25; // Set desired width
-            const rectHeight = 12.5; // Set desired height
+            const rectHeight = 25; // Set desired height
             
 
             // Create links from the rectangle to each involved professor
@@ -572,9 +581,14 @@ const colorScale = [
 
             //workTypeColor
 
-            const workCategories = ["paper", "project", "others"];
+            const workCategories = ["Paper", "Project",  "Grants"];
 
-            
+            // Define the mapping of categories to PNG image paths
+            const categoryImageMap = {
+                "Paper": "icons/paper.png",
+                "Project": "icons/project.png",
+                "Grants": "icons/grants.png"
+            };
 
             const colorScale = d3.scaleOrdinal()
             .domain(workCategories)
@@ -582,32 +596,47 @@ const colorScale = [
                 "#FE4A49", "#FED766", "#009FB7"
             ]); // or any other preferred color scheme
 
-            const rect = svg.append('rect')
+
+
+            const rect = svg.append('image')
                 .attr('x', rectX - rectWidth / 2)
                 .attr('y', rectY - rectHeight / 2)
-                .attr('width', rectWidth)
-                .attr('height', rectHeight)
-                .attr('fill', colorScale(work.workType))
-                .on('mouseover', function() {
+                .attr('width', function() {
+                    return work.workType === "Project" ? rectWidth * 1.2 : rectWidth; // Adjust the size of the project icon
+                })
+                .attr('height', function() {
+                    return work.workType === "Project" ? rectHeight * 1.2 : rectHeight; // Adjust the size of the project icon
+                })
+                //.attr('width', rectWidth)
+                //.attr('height', rectHeight)
+                .attr('xlink:href', categoryImageMap[work.workType]) // Set image based on work type  
+                .on('mouseover', function () {
                     // Highlight all lines connected to this rectangle
-                    svg.selectAll(`.${work.title}`)
-                        .attr('stroke-width', 3);  // Increase stroke width or any other highlighting style
+                    const sanitizedTitle = work.title.replace(/[^\w\s]/gi, ''); // Remove special characters
+                    const selector = `.${sanitizedTitle}`; // Use sanitized title as selector
+                    svg.selectAll(selector)
+                        .attr('stroke-width', 3); // Increase stroke width or any other highlighting style
                     popover.select("#popover-content").text(`${work.title}`); // Set content
                     popover.style('display', 'block')
                         .style('opacity', 1)
                         .style('left', (event.pageX + 10) + 'px')
                         .style('top', (event.pageY - 28) + 'px');
                 })
-                .on('mouseout', function() {
+                .on('mouseout', function () {
                     // Revert the style of the lines
-                    svg.selectAll(`.${work.title}`)
+                    const sanitizedTitle = work.title.replace(/[^\w\s]/gi, ''); // Remove special characters
+                    const selector = `.${sanitizedTitle}`; // Use sanitized title as selector
+                    svg.selectAll(selector)
                         .attr('stroke-width', 1);
                     popover.style('opacity', 0)
                         .style('display', 'none');
                 })
-                .on('click', function() {
+                .on('click', function () {
+                    // Redirect to the specified URL
                     window.open(work.link, '_blank');
-                })
+                    //alert(1);
+                });
+
         });
 
 
@@ -617,5 +646,8 @@ const colorScale = [
     </script>
 </body>
 </html>
+
+
+
 
 
